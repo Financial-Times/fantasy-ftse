@@ -1,0 +1,292 @@
+{
+	"data": {
+		"items": [
+			{
+				"symbolInput": "pson:lse",
+				"basic": {
+					"symbol": "PSON:LSE",
+					"name": "Pearson",
+					"exchange": "London Stock Exchange",
+					"exhangeCode": "LSE",
+					"currency": "GBp"
+				},
+				"timeSeries": {
+					"timeSeriesData": [
+						{
+							"open": 786,
+							"high": 786,
+							"low": 784,
+							"close": 784.28,
+							"lastClose": "2016-11-28T08:05:00",
+							"volume": 9590
+						},
+						{
+							"open": 783.5,
+							"high": 786.5,
+							"low": 782,
+							"close": 784.5,
+							"lastClose": "2016-11-28T08:10:00",
+							"volume": 19766
+						},
+						{
+							"open": 783.5,
+							"high": 784.5,
+							"low": 783,
+							"close": 783.5,
+							"lastClose": "2016-11-28T08:15:00",
+							"volume": 4773
+						},
+						{
+							"open": 783,
+							"high": 783.5,
+							"low": 782,
+							"close": 783,
+							"lastClose": "2016-11-28T08:19:59",
+							"volume": 9758
+						},
+						{
+							"open": 782,
+							"high": 782.5,
+							"low": 782,
+							"close": 782.5,
+							"lastClose": "2016-11-28T08:24:59",
+							"volume": 1890
+						},
+						{
+							"open": 783,
+							"high": 783.5,
+							"low": 781,
+							"close": 783.5,
+							"lastClose": "2016-11-28T08:30:00",
+							"volume": 26389
+						},
+						{
+							"open": 783,
+							"high": 783,
+							"low": 781.5,
+							"close": 781.75,
+							"lastClose": "2016-11-28T08:35:00",
+							"volume": 17247
+						},
+						{
+							"open": 781.5,
+							"high": 781.75,
+							"low": 781.5,
+							"close": 781.75,
+							"lastClose": "2016-11-28T08:39:59",
+							"volume": 3240
+						},
+						{
+							"open": 781.5,
+							"high": 782,
+							"low": 781,
+							"close": 781.5,
+							"lastClose": "2016-11-28T08:44:59",
+							"volume": 11388
+						},
+						{
+							"open": 781.5,
+							"high": 781.5,
+							"low": 780.5,
+							"close": 781,
+							"lastClose": "2016-11-28T08:50:00",
+							"volume": 9375
+						},
+						{
+							"open": 781,
+							"high": 781.5,
+							"low": 781,
+							"close": 781.5,
+							"lastClose": "2016-11-28T08:55:00",
+							"volume": 4869
+						},
+						{
+							"open": 781.25,
+							"high": 783,
+							"low": 781.11,
+							"close": 782.5,
+							"lastClose": "2016-11-28T09:00:00",
+							"volume": 14862
+						},
+						{
+							"open": 782.5,
+							"high": 783.5,
+							"low": 782.5,
+							"close": 783.055,
+							"lastClose": "2016-11-28T09:04:59",
+							"volume": 10262
+						},
+						{
+							"open": 783,
+							"high": 786.5,
+							"low": 783,
+							"close": 786,
+							"lastClose": "2016-11-28T09:09:59",
+							"volume": 40236
+						},
+						{
+							"open": 786,
+							"high": 786.5,
+							"low": 786,
+							"close": 786,
+							"lastClose": "2016-11-28T09:15:00",
+							"volume": 5447
+						},
+						{
+							"open": 786.5,
+							"high": 786.5,
+							"low": 786.5,
+							"close": 786.5,
+							"lastClose": "2016-11-28T09:20:00",
+							"volume": 617
+						},
+						{
+							"open": 786,
+							"high": 787.32,
+							"low": 785.75,
+							"close": 787.32,
+							"lastClose": "2016-11-28T09:24:59",
+							"volume": 10154
+						},
+						{
+							"open": 787,
+							"high": 787,
+							"low": 787,
+							"close": 787,
+							"lastClose": "2016-11-28T09:29:59",
+							"volume": 2071
+						},
+						{
+							"open": 786.75,
+							"high": 788,
+							"low": 786.75,
+							"close": 788,
+							"lastClose": "2016-11-28T09:35:00",
+							"volume": 10706
+						},
+						{
+							"open": 788,
+							"high": 788,
+							"low": 787.5,
+							"close": 787.75,
+							"lastClose": "2016-11-28T09:40:00",
+							"volume": 3860
+						},
+						{
+							"open": 787.5,
+							"high": 787.5,
+							"low": 786.5,
+							"close": 787,
+							"lastClose": "2016-11-28T09:45:00",
+							"volume": 7969
+						},
+						{
+							"open": 786.5,
+							"high": 786.75,
+							"low": 786.5,
+							"close": 786.5,
+							"lastClose": "2016-11-28T09:49:59",
+							"volume": 15198
+						},
+						{
+							"open": 787,
+							"high": 787.5,
+							"low": 787,
+							"close": 787.5,
+							"lastClose": "2016-11-28T09:54:59",
+							"volume": 1445
+						},
+						{
+							"open": 787.5,
+							"high": 789,
+							"low": 787.5,
+							"close": 789,
+							"lastClose": "2016-11-28T10:00:00",
+							"volume": 6924
+						},
+						{
+							"open": 789,
+							"high": 790.5,
+							"low": 789,
+							"close": 790.5,
+							"lastClose": "2016-11-28T10:05:00",
+							"volume": 24671
+						},
+						{
+							"open": 790.5,
+							"high": 791,
+							"low": 788.5,
+							"close": 788.5,
+							"lastClose": "2016-11-28T10:09:59",
+							"volume": 28407
+						},
+						{
+							"open": 788.5,
+							"high": 789,
+							"low": 788.5,
+							"close": 788.5,
+							"lastClose": "2016-11-28T10:14:59",
+							"volume": 5159
+						},
+						{
+							"open": 788.5,
+							"high": 788.5,
+							"low": 788.5,
+							"close": 788.5,
+							"lastClose": "2016-11-28T10:20:00",
+							"volume": 4614
+						},
+						{
+							"open": 789,
+							"high": 789,
+							"low": 789,
+							"close": 789,
+							"lastClose": "2016-11-28T10:25:00",
+							"volume": 3346
+						},
+						{
+							"open": 789.5,
+							"high": 789.5,
+							"low": 788.5,
+							"close": 788.5,
+							"lastClose": "2016-11-28T10:30:00",
+							"volume": 5058
+						},
+						{
+							"open": 788,
+							"high": 788.5,
+							"low": 788,
+							"close": 788.5,
+							"lastClose": "2016-11-28T10:34:59",
+							"volume": 10292
+						},
+						{
+							"open": 788.5,
+							"high": 788.5,
+							"low": 787.5,
+							"close": 787.5,
+							"lastClose": "2016-11-28T10:39:59",
+							"volume": 9606
+						}
+					],
+					"lastPrice": 787.5,
+					"lastPriceTimeStamp": "2016-11-28T10:41:25",
+					"lastSession": {
+						"timeOpen": "2016-11-28T08:00:00",
+						"timeClose": "2016-11-28T16:35:00",
+						"isInSession": true,
+						"isAfterOpen": true,
+						"isBeforeOpen": false,
+						"lastPrice": 787.5,
+						"previousClosePrice": 787,
+						"open": 786,
+						"high": 791,
+						"low": 780.5,
+						"volume": 343564
+					}
+				}
+			}
+		]
+	},
+	"timeGenerated": "2016-11-28T10:56:26"
+}
