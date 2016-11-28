@@ -143,7 +143,7 @@ function drawChart(dayCount) {
 }
 
 function init() {
-  dayCount = 365;
+  dayCount = 31;
   drawChart(dayCount);
 }
 
