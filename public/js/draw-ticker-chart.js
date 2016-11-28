@@ -1,3 +1,13 @@
+function findYatX(x, linePath) {
+  function getXY(len) {
+      var point = linePath.getPointAtLength(len);
+      return [point.x, point.y];
+  }
+  var curlen = 0;
+  while (getXY(curlen)[0] < x) { curlen += 0.01; }
+  return getXY(curlen);
+}
+
 function drawChart() {
   var frame = d3.select('#ticker-timeseries');
   frame.html('');
@@ -82,11 +92,11 @@ function drawChart() {
 
         var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
         var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
-        console.log(xScale(articleTimestamp), yScale(item.close)-3)
+        console.log(xScale(articleTimestamp), findYatX(xScale(articleTimestamp), d3.select('.line').node()))
 
         annotations.append('circle')
           .attr('cx', xScale(articleTimestamp))
-          .attr('cy', yScale(item.close)-3) // TODO: get position on line
+          .attr('cy', findYatX(xScale(articleTimestamp), d3.select('.line').node())[1])
           .attr('r', 6)
           .attr('fill', '#fff1e0')
           .attr('stroke', '#9e2f50')
