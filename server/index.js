@@ -4,6 +4,7 @@ import nunjucks from 'nunjucks';
 import dashboardController from './controllers/dashboard';
 import tickersController from './controllers/tickers';
 import contentAPI from './controllers/content-api';
+import somethingController from  './controllers/something';
 
 const app = express();
 app.disable('x-powered-by');
@@ -23,6 +24,7 @@ app.get('/', dashboardController);
 app.get('/funds/:tickerId', tickersController);
 app.get('/content/:tickerId', contentAPI);
 //app.get('/articles/:uuid', contentAPI);
+app.get('/something', somethingController);
 
 const server = app.listen(process.env.PORT || 5000, () => {
   const { port } = server.address();
