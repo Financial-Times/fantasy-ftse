@@ -164,6 +164,14 @@ d3.select(window).on('resize', init());
 var timePeriodButtons = document.querySelectorAll('#ticker-timeseries-controls button');
 for (var i = 0; i < timePeriodButtons.length; i++) {
   timePeriodButtons[i].addEventListener('click', function(event) {
+    // change attributes on button (view)
+    for (var j = 0; j < timePeriodButtons.length; j++) {
+      var button = timePeriodButtons[j];
+      button.setAttribute('aria-selected', false);
+    }
+    this.setAttribute('aria-selected', true);
+
+    // redraw chart
     var period = this.getAttribute("data-period");
     drawChart(period);
   });
