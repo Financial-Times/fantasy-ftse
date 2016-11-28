@@ -1,16 +1,34 @@
-function findYatX(x, linePath) {
-  function getXY(len) {
-      var point = linePath.getPointAtLength(len);
-      return [point.x, point.y];
+var findYatX = function(x, path, error){
+  var length_end = path.getTotalLength()
+    , length_start = 0
+    , point = path.getPointAtLength((length_end + length_start) / 2) // get the middle point
+    , bisection_iterations_max = 50
+    , bisection_iterations = 0
+
+  error = error || 0.01
+
+  while (x < point.x - error || x > point.x + error) {
+    // get the middle point
+    point = path.getPointAtLength((length_end + length_start) / 2)
+
+    if (x < point.x) {
+      length_end = (length_start + length_end)/2
+    } else {
+      length_start = (length_start + length_end)/2
+    }
+
+    // Increase iteration
+    if(bisection_iterations_max < ++ bisection_iterations)
+      break;
   }
-  var curlen = 0;
-  while (getXY(curlen)[0] < x) { curlen += 0.01; }
-  return getXY(curlen);
+  return point.y
 }
 
-function drawChart() {
+function drawChart(dayCount) {
   var frame = d3.select('#ticker-timeseries');
   frame.html('');
+  d3.select('#ticker-articles tbody').html('');
+
   var margins = {
     left: 30,
     right: 10,
@@ -41,7 +59,12 @@ function drawChart() {
 
   var parseDate = d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ');
 
-  d3.json('http://markets.ft.com/research/webservices/securities/v1/time-series?source=7d373767c4bc81a4&symbols=' + window.tickerId, function (d) {
+  var baseFetchURL = "http://markets.ft.com/research/webservices/securities/v1/time-series-interday";
+  if (dayCount === '1') {
+    baseFetchURL = "http://markets.ft.com/research/webservices/securities/v1/time-series";
+  }
+
+  d3.json(baseFetchURL + '?source=7d373767c4bc81a4&dayCount='+dayCount+'&symbols=' + window.tickerId, function (d) {
     var timeseriesData = d.data.items[0].timeSeries.timeSeriesData;
     var currency = d.data.items[0].basic.currency;
 
@@ -102,10 +125,16 @@ function drawChart() {
           .attr('stroke', '#9e2f50')
           .attr('stroke-width', '3');
 
-        d3.select('table#ticker-articles tbody')
+        var articleRow = d3.select('#ticker-articles tbody')
           .append('tr')
-            .append('td')
-              .html("<a href='//ft.com/content/" + article.uuid + "'>" + article.title + "</a> ("+ article.publishedDate+")")
+
+        articleRow
+          .append('td')
+            .html(d3.timeFormat("%b %d, %Y %H:%M")(parseDate(article.publishedDate)))
+
+        articleRow
+          .append('td')
+            .html("<a href='//ft.com/content/" + article.uuid + "'>" + article.title + "</a>: "+ article.teaser)
       }
     });
 
@@ -113,7 +142,16 @@ function drawChart() {
 }
 
 function init() {
-  drawChart();
+  dayCount = 365;
+  drawChart(dayCount);
 }
 
 d3.select(window).on('resize', init());
+
+var timePeriodButtons = document.querySelectorAll('#ticker-timeseries-controls button');
+for (var i = 0; i < timePeriodButtons.length; i++) {
+  timePeriodButtons[i].addEventListener('click', function(event) {
+    var period = this.getAttribute("data-period");
+    drawChart(period);
+  });
+}

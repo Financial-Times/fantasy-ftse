@@ -3,8 +3,23 @@
 
 	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 
-	<!-- ALL ORIGAMI COMPONENTS  -->
-    <link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-fonts@^2.2.0,o-header@^6.12.0,o-grid@^4.3.0"/>
+    <style>
+        body {
+        font-family: MetricWeb;
+        }
+        #ftse-ranking {
+        min-height: 100px;
+        text-align: center;
+        }
+
+        .ftse-teaser {
+        min-width:200px;
+        max-width:400px;
+        }
+    </style>
+
+    <!-- ALL ORIGAMI COMPONENTS  -->
+    <link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-buttons@^4.4.2,o-card@^2.2.3,o-fonts@^2.2.0,o-header@^6.12.0,o-grid@^4.3.0"/>
     <script src="https://build.origami.ft.com/v2/bundles/js?modules=o-header@^6.12.0,o-grid@^4.3.0"></script>
 
     <div class="o-header__row o-header__top">
@@ -78,25 +93,93 @@
             </div>
         </div>
     </div>
-    <div class="o-header__subbrand" data-o-header-subbrand="" style="font-family: MetricWeb;color:white">
+    <div class="o-header__subbrand" data-o-header-subbrand="" style="font-family: MetricWeb;color:white; text-align:center">
         <a class="o-header__subbrand-logo demo-o-header__subbrand-logo">
-           FT LEAGUE THING
+           FTSE Fantasy League
         </a>
     </div>
 </header>
 
 <body style="background: #fff1e0;">
     {% block content %}
-    <div class="demo-container demo-family-metricweb" style="font-family: MetricWeb;">
-        A random sentence in Metric Web.
-    </div>
-
     <div class="o-grid-container">
-        <div class="o-grid-row">
-            <div data-o-grid-colspan="4"><div class="demo-cell">4</div></div>
-            <div data-o-grid-colspan="4"><div class="demo-cell">4</div></div>
-            <div data-o-grid-colspan="4"><div class="demo-cell">4</div></div>
+        <div id = "ftse-ranking" class="o-grid-row">
+            <div data-o-grid-colspan="4"><div class="demo-cell"> Your Ranking goes here</div></div>
+            <div data-o-grid-colspan="4"><div class="demo-cell"> Your Cash goes here </div></div>
+            <div data-o-grid-colspan="4"><div class="demo-cell">Your Capital goes here</div></div>
         </div>
+
+        <div id = "ftse-ranking-2" class="o-grid-row">
+           <p> Graph goes here.... </p>
+            <div> A selection of origami buttons...
+                <button class="o-buttons">Standard</button>
+                <button class="o-buttons" aria-selected="true">Selected</button>
+                <button class="o-buttons" aria-pressed="true">Pressed</button>
+                <button class="o-buttons" disabled>Disabled</button>
+            </div>
+        </div>
+
+
+    <div class="o-grid-row">
+        <div class="demo-container ftse-teaser demo-container--standout">
+            <div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
+                <div class="o-card__image o-card__image--">
+                    <img src="https://image.webservices.ft.com/v1/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Fa60ae24b-b87f-439c-bf1b-6e54946b4cf2.img?source=o-card-demo" alt="demo image"></img>
+                </div>
+
+                <div class="o-card__content">
+                    <div class="o-card__meta">
+                        <a href="#" class="o-card__tag">Technology</a>
+                    </div>
+
+                    <h2 class="o-card__heading"><a href="#">Google to Poke Apple in the Eye with Spoon</a></h2>
+
+
+                    <time data-o-component="o-date" class="o-date o-card__timestamp" datetime="2016-02-29T12:35:48Z">2016-02-29T12:35:48Z</time>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="demo-container ftse-teaser demo-container--standout">
+            <div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
+                <div class="o-card__image o-card__image--">
+                    <img src="https://image.webservices.ft.com/v1/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Fa60ae24b-b87f-439c-bf1b-6e54946b4cf2.img?source=o-card-demo" alt="demo image"></img>
+                </div>
+
+                <div class="o-card__content">
+                    <div class="o-card__meta">
+                        <a href="#" class="o-card__tag">Financial News</a>
+                    </div>
+
+                    <h2 class="o-card__heading"><a href="#">Apple to be "More Jesus than Jesus"</a></h2>
+
+
+                    <time data-o-component="o-date" class="o-date o-card__timestamp" datetime="2016-02-29T12:35:48Z">2016-02-29T12:35:48Z</time>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="demo-container ftse-teaser demo-container--standout">
+            <div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
+                <div class="o-card__image o-card__image--">
+                    <img src="https://image.webservices.ft.com/v1/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Fa60ae24b-b87f-439c-bf1b-6e54946b4cf2.img?source=o-card-demo" alt="demo image"></img>
+                </div>
+
+                <div class="o-card__content">
+                    <div class="o-card__meta">
+                        <a href="#" class="o-card__tag">Economic Growth</a>
+                    </div>
+
+                    <h2 class="o-card__heading"><a href="#">Theresa may to personally read all citizens emails</a></h2>
+
+                    <time data-o-component="o-date" class="o-date o-card__timestamp" datetime="2016-02-29T12:35:48Z">2016-02-29T12:35:48Z</time>
+                </div>
+
+            </div>
+        </div>
+    </div>
     </div>
     {% endblock %}
 </body>

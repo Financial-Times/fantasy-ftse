@@ -7,6 +7,10 @@ body {
   font-family: MetricWeb, sans-serif;
 }
 
+#ticker-timeseries-controls {
+  float: right;
+}
+
 #ticker-timeseries text {
   font-family: MetricWeb, sans-serif;
 }
@@ -22,15 +26,18 @@ body {
 
 <p>Hello from {{ tickerId }} page</p>
 
+<div class="o-buttons-group" id='ticker-timeseries-controls'>
+  <button class="o-buttons" id="o-buttons--day" data-period=1>day</button>
+  <button class="o-buttons" id="o-buttons--week" data-period=7>week</button>
+  <button class="o-buttons" id="o-buttons--month" data-period=31 aria-selected="true">month</button>
+</div>
 <div id='ticker-timeseries'></div>
-<table id='ticker-articles'>
-  <thead>
-    <tr>
-      <th>Articles</th>
-    </tr>
-  </thead>
-  <tbody></tbody>
-</table>
+<div id='ticker-articles'>
+  <h3>Recent stories</h3>
+  <table>
+    <tbody></tbody>
+  </table>
+</div>
 
 <script src="https://ig.ft.com/static/g-ui/libs/d3.v4.min.js"></script>
 
