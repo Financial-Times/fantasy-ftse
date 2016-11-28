@@ -114,7 +114,7 @@ function drawChart(dayCount) {
 
         var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
         var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
-        console.log(articleTimestamp, xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
+        // console.log(articleTimestamp, xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
 
         annotations.append('circle')
           .attr('cx', xScale(articleTimestamp))
