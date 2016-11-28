@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import nunjucks from 'nunjucks';
 import dashboardController from './controllers/dashboard';
 import tickersController from './controllers/tickers';
+import contentAPI from './controllers/content-api';
 
 const app = express();
 app.disable('x-powered-by');
@@ -20,6 +21,8 @@ app.use(express.static('public'));
 
 app.get('/', dashboardController);
 app.get('/funds/:tickerId', tickersController);
+app.get('/content/:tickerId', contentAPI);
+//app.get('/articles/:uuid', contentAPI);
 
 const server = app.listen(process.env.PORT || 5000, () => {
   const { port } = server.address();
