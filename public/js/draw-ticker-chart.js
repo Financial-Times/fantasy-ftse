@@ -124,16 +124,25 @@ function drawChart(dayCount) {
           .attr('stroke', '#9e2f50')
           .attr('stroke-width', '3');
 
-        var articleRow = d3.select('#ticker-articles tbody')
-          .append('tr')
+        var articleTeaser = d3.select('#ticker-articles .o-teaser')
+          .append('div')
+          .attr('class', 'o-teaser__content')
 
-        articleRow
-          .append('td')
-            .html(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)))
+        articleTeaser
+          .append('a')
+            .attr('class', 'o-teaser__tag')
+            .attr('href', '//ft.com/content/" + article.uuid + "')
+            .text('World');
 
-        articleRow
-          .append('td')
-            .html("<a href='//ft.com/content/" + article.uuid + "'>" + article.title + "</a>: "+ article.teaser)
+        articleTeaser
+          .append('h2')
+          .attr('class', 'o-teaser__heading')
+          .text(article.title);
+          
+        articleTeaser
+          .append('div')
+          .attr('class', 'o-teaser__timestamp')
+          .text(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)))
       }
     });
 
