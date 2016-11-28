@@ -101,6 +101,11 @@ function drawChart() {
           .attr('fill', '#fff1e0')
           .attr('stroke', '#9e2f50')
           .attr('stroke-width', '3');
+
+        d3.select('table#ticker-articles tbody')
+          .append('tr')
+            .append('td')
+              .html("<a href='//ft.com/content/" + article.uuid + "'>" + article.title + "</a> ("+ article.publishedDate+")")
       }
     });
 
