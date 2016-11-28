@@ -1,13 +1,8 @@
 <html>
 <header class="o-header o-header--simple" data-o-component="o-header" data-o-header--no-js="">
-    <!-- ORIGAMI HEADER HEADER  -->
-    <link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-header@^6.12.0" />
-    <script src="https://build.origami.ft.com/v2/bundles/js?modules=o-header@^6.12.0"></script>
-
-    <!-- ORIGAMI GRID -->
-    <link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-grid@^4.3.0" />
-    <script src="https://build.origami.ft.com/v2/bundles/js?modules=o-grid@^4.3.0"></script>
-
+    <!-- ALL ORIGAMI COMPONENTS  -->
+    <link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-fonts@^2.2.0,o-header@^6.12.0,o-grid@^4.3.0"/>
+    <script src="https://build.origami.ft.com/v2/bundles/js?modules=o-header@^6.12.0,o-grid@^4.3.0"></script>
 
     <div class="o-header__row o-header__top">
         <div class="o-header__container">
@@ -80,17 +75,19 @@
             </div>
         </div>
     </div>
-    <div class="o-header__subbrand" data-o-header-subbrand="">
+    <div class="o-header__subbrand" data-o-header-subbrand="" style="font-family: MetricWeb;color:white">
         <a class="o-header__subbrand-logo demo-o-header__subbrand-logo">
            FT LEAGUE THING
         </a>
     </div>
 </header>
 
-<script src="//origami-build.ft.com/v2/bundles/js?modules=o-header%406.12.0%3A%2Fdemos%2Fsrc%2Fmain.js%2Co-fonts%40%5E2.0.0"></script>
-
 <body style="background: #fff1e0;">
     {% block content %}
+    <div class="demo-container demo-family-metricweb" style="font-family: MetricWeb;">
+        A random sentence in Metric Web.
+    </div>
+
     <div class="o-grid-container">
         <div class="o-grid-row">
             <div data-o-grid-colspan="4"><div class="demo-cell">4</div></div>
