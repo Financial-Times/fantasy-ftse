@@ -1,3 +1,3 @@
-export default async (tickerId) => {
-  return { tickerId }
+export default async (tickerId, companyName) => {
+  return { tickerId, companyName }
 };

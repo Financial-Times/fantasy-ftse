@@ -107,8 +107,7 @@ function drawChart(dayCount) {
         .attr('class', 'line')
         .attr('d', line);
 
-    d3.json('/content/goog:nye', function(d) {
-      var articles = d.articles;
+    d3.json('/content/' + window.companyName, function(articles) {
       for (var i = 0; i < articles.length; i++) {
         var article = articles[i];
         var articleTimestamp = parseDate(article.publishedDate);

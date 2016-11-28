@@ -8,6 +8,7 @@ export default async (req, res) => {
   res.setHeader('Cache-Control', cacheControl);
 
   const tickerId = req.params.tickerId;
+  const companyName = req.query.companyName;
 
-  res.render('tickers.html', await createTickers(tickerId));
+  res.render('tickers.html', await createTickers(tickerId, companyName));
 };
