@@ -7,17 +7,15 @@ export default async (req, res) => {
 
   const tickerId = req.params.tickerId;
 
-	const mock = [
-		{
+	const mock ={
 			comanyName: "Apple Inc",
 			ticker: "APPL-NYSE",
 			articles: [
 				{
 					uuid: "2286616a-1a37-11e3-b3da-00144feab7de"
-
+					title: "Strong earnings send FTSE higher",
 				}
 			]
-		}
-	];
+		};
   res.json(mock);
 };
