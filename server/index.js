@@ -2,7 +2,7 @@ import express from 'express';
 import chalk from 'chalk';
 import nunjucks from 'nunjucks';
 import dashboardController from './controllers/dashboard';
-import companiesController from './controllers/companies';
+import tickersController from './controllers/tickers';
 
 const app = express();
 app.disable('x-powered-by');
@@ -17,7 +17,7 @@ app.get('/__gtg', (req, res) => {
 });
 
 app.get('/', dashboardController);
-app.get('/funds/:company', companiesController);
+app.get('/funds/:tickerId', tickersController);
 
 const server = app.listen(process.env.PORT || 5000, () => {
   const { port } = server.address();
