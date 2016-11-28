@@ -102,7 +102,7 @@ function drawChart(dayCount) {
         .style('text-anchor', 'end')
         .text('Close price ('+currency+')');
 
-    g.append('path')
+    var timeseriesLine = g.append('path')
         .datum(timeseriesData)
         .attr('class', 'line')
         .attr('d', line);
@@ -115,11 +115,12 @@ function drawChart(dayCount) {
 
         var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
         var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
-        console.log(xScale(articleTimestamp), findYatX(xScale(articleTimestamp), d3.select('.line').node()))
+        // console.log(xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
+        console.log(findYatX(xScale(articleTimestamp), d3.select('.line').node()))
 
         annotations.append('circle')
           .attr('cx', xScale(articleTimestamp))
-          .attr('cy', findYatX(xScale(articleTimestamp), d3.select('.line').node())[1])
+          .attr('cy', findYatX(xScale(articleTimestamp), timeseriesLine.node()))
           .attr('r', 6)
           .attr('fill', '#fff1e0')
           .attr('stroke', '#9e2f50')
