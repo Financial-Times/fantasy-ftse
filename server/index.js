@@ -6,8 +6,11 @@ import tickersController from './controllers/tickers';
 import contentAPI from './controllers/content-api';
 import fixtures from './controllers/fixtures';
 import somethingController from  './controllers/something';
+import dotenv from 'dotenv';
+
 
 const app = express();
+dotenv.config();
 app.disable('x-powered-by');
 
 nunjucks.configure('views', {
