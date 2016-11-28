@@ -1,10 +1,20 @@
+function findYatX(x, linePath) {
+  function getXY(len) {
+      var point = linePath.getPointAtLength(len);
+      return [point.x, point.y];
+  }
+  var curlen = 0;
+  while (getXY(curlen)[0] < x) { curlen += 0.01; }
+  return getXY(curlen);
+}
+
 function drawChart() {
   var frame = d3.select('#ticker-timeseries');
   frame.html('');
   var margins = {
     left: 30,
     right: 10,
-    top: 0,
+    top: 20,
     bottom: 50,
   }
   var frameWidth = document.getElementById('ticker-timeseries').offsetWidth - margins.left - margins.right;
@@ -29,17 +39,18 @@ function drawChart() {
   var yScale = d3.scaleLinear()
     .rangeRound([frameHeight, 0]);
 
-  var parseDate = d3.timeParse('%Y-%m-%dT%H:%M:%S');
+  var parseDate = d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ');
 
-  d3.json('/js/pson-dummy-data.json', function (d) {
+  d3.json('http://markets.ft.com/research/webservices/securities/v1/time-series?source=7d373767c4bc81a4&symbols=' + window.tickerId, function (d) {
     var timeseriesData = d.data.items[0].timeSeries.timeSeriesData;
     var currency = d.data.items[0].basic.currency;
 
-    console.log(timeseriesData)
-
     timeseriesData.forEach(function(d) {
-      d.lastClose=parseDate(d.lastClose);
+      var closeDate = d.lastClose.toString()+'.000Z'
+      d.lastClose=parseDate(closeDate);
     });
+
+    console.log(timeseriesData)
 
     xScale.domain(d3.extent(timeseriesData, function(d) { return d.lastClose; }))
 
@@ -77,18 +88,24 @@ function drawChart() {
       var articles = d.articles;
       for (var i = 0; i < articles.length; i++) {
         var article = articles[i];
-        var articleTimestamp = parseDate(article.timestamp);
+        var articleTimestamp = parseDate(article.publishedDate);
 
         var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
         var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
+        console.log(xScale(articleTimestamp), findYatX(xScale(articleTimestamp), d3.select('.line').node()))
 
         annotations.append('circle')
           .attr('cx', xScale(articleTimestamp))
-          .attr('cy', yScale(item.close)-3) // TODO: get position on line
+          .attr('cy', findYatX(xScale(articleTimestamp), d3.select('.line').node())[1])
           .attr('r', 6)
           .attr('fill', '#fff1e0')
           .attr('stroke', '#9e2f50')
           .attr('stroke-width', '3');
+
+        d3.select('table#ticker-articles tbody')
+          .append('tr')
+            .append('td')
+              .html("<a href='//ft.com/content/" + article.uuid + "'>" + article.title + "</a> ("+ article.publishedDate+")")
       }
     });
 

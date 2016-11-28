@@ -21,7 +21,7 @@ export default (req, res) => {
 				{
 					uuid: "0aa1a704-0bfd-30d6-9760-a3e016f97aa2",
 					title: "Stocks mixed as Trump rally loses some of its momentum",
-					publishedDate: "2016-11-15T16:00:02.000Z",
+					publishedDate: "2016-11-28T10:00:02.000Z",
 					teaser: "US stocks are mixed in Tuesday trading, as the rally following Donald Trump's presidential election victory last week lost some of its momentum."
 				}
 			]
