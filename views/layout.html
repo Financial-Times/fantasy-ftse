@@ -1,6 +1,6 @@
 <html>
 <header class="o-header o-header--simple" data-o-component="o-header" data-o-header--no-js="">
-
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 
     <style>
@@ -15,6 +15,9 @@
         .ftse-teaser {
         min-width:200px;
         max-width:400px;
+        }
+        path {
+            fill:none;
         }
     </style>
 
@@ -101,6 +104,8 @@
 </header>
 
 <body style="background: #fff1e0;">
+
+
     {% block content %}
     <div class="o-grid-container">
         <div id = "ftse-ranking" class="o-grid-row">
@@ -110,13 +115,20 @@
         </div>
 
         <div id = "ftse-ranking-2" class="o-grid-row">
-           <p> Graph goes here.... </p>
+           <div>
+               <svg height="200" width="1200">
+               <path d="M11 10h1v3c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h3v1H1v10h10V10zM6 2l2.25 2.25-3.25 3.25 1.5 1.5 3.25-3.25 2.25 2.25V2H6z"></path>
+           </svg>
+           </div>
+            <!--
             <div> A selection of origami buttons...
                 <button class="o-buttons">Standard</button>
                 <button class="o-buttons" aria-selected="true">Selected</button>
                 <button class="o-buttons" aria-pressed="true">Pressed</button>
                 <button class="o-buttons" disabled>Disabled</button>
             </div>
+
+            -->
         </div>
 
 
@@ -124,7 +136,7 @@
         <div class="demo-container ftse-teaser demo-container--standout">
             <div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
                 <div class="o-card__image o-card__image--">
-                    <img src="https://image.webservices.ft.com/v1/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Fa60ae24b-b87f-439c-bf1b-6e54946b4cf2.img?source=o-card-demo" alt="demo image"></img>
+                    <img src="http://creoleindc.typepad.com/.a/6a00d8341c5e0053ef017617491cee970c-800wi?source=o-card-demo" alt="demo image"></img>
                 </div>
 
                 <div class="o-card__content">
@@ -164,7 +176,7 @@
         <div class="demo-container ftse-teaser demo-container--standout">
             <div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
                 <div class="o-card__image o-card__image--">
-                    <img src="https://image.webservices.ft.com/v1/images/raw/http%3A%2F%2Fim.ft-static.com%2Fcontent%2Fimages%2Fa60ae24b-b87f-439c-bf1b-6e54946b4cf2.img?source=o-card-demo" alt="demo image"></img>
+                    <img src="http://www.telegraph.co.uk/content/dam/news/2016/07/13/makes_a_speech_outside_10_Downing_Street_London_after_meeti-large_trans++LfZdHPP_Jms68Nei_IBhrlUgUS7wjdMtk9zfalez_c4.jpg?source=o-card-demo" alt="demo image"></img>
                 </div>
 
                 <div class="o-card__content">
@@ -181,6 +193,7 @@
         </div>
     </div>
     </div>
+    <script src = "/js/draw-dummy-graph.js"></script>
     {% endblock %}
 </body>
 
