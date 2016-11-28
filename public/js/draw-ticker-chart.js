@@ -137,12 +137,14 @@ function drawChart(dayCount) {
           articleTeaser
             .append('a')
               .attr('class', 'o-teaser__tag')
-              .attr('href', '//ft.com/content/" + article.uuid + "')
+              .attr('href', '#')
               .text('World');
 
           articleTeaser
             .append('h2')
             .attr('class', 'o-teaser__heading')
+            .append('a')
+            .attr('href', '//ft.com/content/' + article.uuid)
             .text(article.title);
 
           articleTeaser
