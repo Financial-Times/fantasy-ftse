@@ -1,32 +1,40 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+<style>
+    #ftse-trade {
+        text-align: center;
+    }
+</style>
+
 <div class="o-grid-container">
     <div id = "ftse-ranking" class="o-grid-row">
-        <div data-o-grid-colspan="4"><div class="demo-cell"> Your Ranking goes here</div></div>
-        <div data-o-grid-colspan="4"><div class="demo-cell"> Your Cash goes here </div></div>
-        <div data-o-grid-colspan="4"><div class="demo-cell">Your Capital goes here</div></div>
+        <div data-o-grid-colspan="4"><div class="demo-cell"> Your Ranking <br/> 2,480</div></div>
+        <div data-o-grid-colspan="4"><div class="demo-cell" style="font-size:x-large"> Your Cash<br/> £4800 </div></div>
+        <div data-o-grid-colspan="4"><div class="demo-cell">Your Capital <br/> £10000</div></div>
     </div>
 
     <div id = "ftse-ranking-2" class="o-grid-row">
-        <div>
-            <svg height="200" width="1200">
+        <div id="graph-holder">
+            <svg height="200" width="900">
                 <path d="M11 10h1v3c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h3v1H1v10h10V10zM6 2l2.25 2.25-3.25 3.25 1.5 1.5 3.25-3.25 2.25 2.25V2H6z"></path>
             </svg>
         </div>
-        <!--
-        <div> A selection of origami buttons...
-            <button class="o-buttons">Standard</button>
-            <button class="o-buttons" aria-selected="true">Selected</button>
-            <button class="o-buttons" aria-pressed="true">Pressed</button>
-            <button class="o-buttons" disabled>Disabled</button>
-        </div>
 
-        -->
+
+
     </div>
 
+    <div id = "ftse-trade" class="o-grid-row">
+        <div data-o-grid-colspan="12"><div class="demo-cell">
+        <button class="o-buttons">Buy </button>
+        <button class="o-buttons" aria-selected="true"> Sell </button>
+        </div>
+            </div>
+    </div>
 
-    <div class="o-grid-row">
+    <div class="o-grid-row" style="padding: 20px 0px">
         <div class="demo-container ftse-teaser demo-container--standout">
             <div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
                 <div class="o-card__image o-card__image--">
