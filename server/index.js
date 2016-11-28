@@ -16,6 +16,8 @@ app.get('/__gtg', (req, res) => {
   res.send('ok');
 });
 
+app.use(express.static('public'));
+
 app.get('/', dashboardController);
 app.get('/funds/:tickerId', tickersController);
 
