@@ -114,7 +114,6 @@ function drawChart(dayCount) {
 
         var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
         var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
-        // console.log(xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
         console.log(findYatX(xScale(articleTimestamp), d3.select('.line').node()))
 
         annotations.append('circle')
@@ -128,9 +127,11 @@ function drawChart(dayCount) {
         var articleRow = d3.select('#ticker-articles tbody')
           .append('tr')
 
+        console.log(article.publishedDate)
+
         articleRow
           .append('td')
-            .html(d3.timeFormat("%b %d, %Y %H:%M")(parseDate(article.publishedDate)))
+            .html(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)))
 
         articleRow
           .append('td')
