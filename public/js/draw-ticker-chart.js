@@ -138,11 +138,16 @@ function drawChart(dayCount) {
           .append('h2')
           .attr('class', 'o-teaser__heading')
           .text(article.title);
-          
+
+        articleTeaser
+          .append('p')
+          .attr('class', 'o-teaser__standfirst')
+          .text(article.teaser);
+
         articleTeaser
           .append('div')
           .attr('class', 'o-teaser__timestamp')
-          .text(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)))
+          .text(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)));
       }
     });
 
