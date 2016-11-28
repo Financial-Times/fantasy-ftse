@@ -4,7 +4,7 @@ function drawChart() {
   var margins = {
     left: 30,
     right: 10,
-    top: 0,
+    top: 20,
     bottom: 50,
   }
   var frameWidth = document.getElementById('ticker-timeseries').offsetWidth - margins.left - margins.right;
@@ -29,17 +29,18 @@ function drawChart() {
   var yScale = d3.scaleLinear()
     .rangeRound([frameHeight, 0]);
 
-  var parseDate = d3.timeParse('%Y-%m-%dT%H:%M:%S');
+  var parseDate = d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ');
 
   d3.json('/js/pson-dummy-data.json', function (d) {
     var timeseriesData = d.data.items[0].timeSeries.timeSeriesData;
     var currency = d.data.items[0].basic.currency;
 
-    console.log(timeseriesData)
-
     timeseriesData.forEach(function(d) {
-      d.lastClose=parseDate(d.lastClose);
+      var closeDate = d.lastClose.toString()+'.000Z'
+      d.lastClose=parseDate(closeDate);
     });
+
+    console.log(timeseriesData)
 
     xScale.domain(d3.extent(timeseriesData, function(d) { return d.lastClose; }))
 
@@ -77,10 +78,11 @@ function drawChart() {
       var articles = d.articles;
       for (var i = 0; i < articles.length; i++) {
         var article = articles[i];
-        var articleTimestamp = parseDate(article.timestamp);
+        var articleTimestamp = parseDate(article.publishedDate);
 
         var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
         var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
+        console.log(xScale(articleTimestamp), yScale(item.close)-3)
 
         annotations.append('circle')
           .attr('cx', xScale(articleTimestamp))
