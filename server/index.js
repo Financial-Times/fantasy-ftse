@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 app.get('/', dashboardController);
 app.get('/funds/:tickerId', tickersController);
-app.get('/content/:tickerId', contentAPI);
+app.get('/content/:companyName', contentAPI);
 //app.get('/articles/:uuid', contentAPI);
 app.get('/fixtures/load', fixtures);
 app.get('/something', somethingController);
