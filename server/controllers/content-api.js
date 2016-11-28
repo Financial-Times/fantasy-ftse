@@ -15,7 +15,8 @@ export default async (req, res) => {
 			articles: [
 				{
 					uuid: "2286616a-1a37-11e3-b3da-00144feab7de",
-					title: "Strong earnings send FTSE higher"
+					title: "Strong earnings send FTSE higher",
+          timestamp: "2016-11-28T09:49:59",
 				}
 			]
 		};
