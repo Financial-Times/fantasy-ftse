@@ -29,7 +29,7 @@ app.get('/funds/:tickerId', tickersController);
 app.get('/content/:companyName', contentAPI);
 //app.get('/articles/:uuid', contentAPI);
 app.get('/fixtures/load', fixtures);
-app.get('/something', somethingController);
+app.get('/welcome', somethingController);
 
 const server = app.listen(process.env.PORT || 5000, () => {
   const { port } = server.address();

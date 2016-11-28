@@ -6,5 +6,5 @@ const cacheControl = `public, max-age=${maxAge}, s-maxage=${sMaxAge}`;
 
 export default async (req, res) => {
   res.setHeader('Cache-Control', cacheControl);
-  res.render('layout.html', await createSomething());
+  res.render('welcome.html', await createSomething());
 };
