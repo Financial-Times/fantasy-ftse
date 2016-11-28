@@ -112,42 +112,49 @@ function drawChart(dayCount) {
         var article = articles[i];
         var articleTimestamp = d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate);
 
-        var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
-        var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
-        // console.log(articleTimestamp, xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
+        // don't display circles before graph starts
+        if (xScale(articleTimestamp) >= 0) {
+          var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
+          var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
+          // console.log(articleTimestamp, xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
 
-        annotations.append('circle')
-          .attr('cx', xScale(articleTimestamp))
-          .attr('cy', findYatX(xScale(articleTimestamp), timeseriesLine.node()))
-          .attr('r', 6)
-          .attr('fill', '#fff1e0')
-          .attr('stroke', '#9e2f50')
-          .attr('stroke-width', '3');
+          annotations
+            .append('a')
+            .attr('xlink:href', '#article-'+i)
+            .append('circle')
+            .attr('cx', xScale(articleTimestamp))
+            .attr('cy', findYatX(xScale(articleTimestamp), timeseriesLine.node()))
+            .attr('r', 6)
+            .attr('fill', '#fff1e0')
+            .attr('stroke', '#9e2f50')
+            .attr('stroke-width', '3');
 
-        var articleTeaser = d3.select('#ticker-articles .o-teaser')
-          .append('div')
-          .attr('class', 'o-teaser__content')
+          var articleTeaser = d3.select('#ticker-articles .o-teaser')
+            .append('div')
+            .attr('class', 'o-teaser__content')
+            .attr('id', 'article-'+i);
 
-        articleTeaser
-          .append('a')
-            .attr('class', 'o-teaser__tag')
-            .attr('href', '//ft.com/content/" + article.uuid + "')
-            .text('World');
+          articleTeaser
+            .append('a')
+              .attr('class', 'o-teaser__tag')
+              .attr('href', '//ft.com/content/" + article.uuid + "')
+              .text('World');
 
-        articleTeaser
-          .append('h2')
-          .attr('class', 'o-teaser__heading')
-          .text(article.title);
+          articleTeaser
+            .append('h2')
+            .attr('class', 'o-teaser__heading')
+            .text(article.title);
 
-        articleTeaser
-          .append('p')
-          .attr('class', 'o-teaser__standfirst')
-          .text(article.teaser);
+          articleTeaser
+            .append('p')
+            .attr('class', 'o-teaser__standfirst')
+            .text(article.teaser);
 
-        articleTeaser
-          .append('div')
-          .attr('class', 'o-teaser__timestamp')
-          .text(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)));
+          articleTeaser
+            .append('div')
+            .attr('class', 'o-teaser__timestamp')
+            .text(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)));
+        }
       }
     });
 
