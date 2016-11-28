@@ -33,7 +33,7 @@ function setUpSearchBox () {
 				// show results
 				searchResultsUl.innerHTML = '';
 				stuff.data.searchResults.forEach(thing => {
-					searchResultsUl.innerHTML = searchResultsUl.innerHTML + '<li>' + thing.symbol + ' - '  + thing.name + '</li>';
+					searchResultsUl.innerHTML = searchResultsUl.innerHTML + '<li><a href="/funds/' + thing.symbol + '">' + thing.symbol + ' - '  + thing.name + '</a></li>';
 				})
 
 			})

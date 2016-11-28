@@ -41,7 +41,7 @@ function drawChart() {
 
   var parseDate = d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ');
 
-  d3.json('/js/pson-dummy-data.json', function (d) {
+  d3.json('http://markets.ft.com/research/webservices/securities/v1/time-series?source=7d373767c4bc81a4&symbols=' + window.tickerId, function (d) {
     var timeseriesData = d.data.items[0].timeSeries.timeSeriesData;
     var currency = d.data.items[0].basic.currency;
 
