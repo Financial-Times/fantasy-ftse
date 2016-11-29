@@ -7,16 +7,13 @@ function getNameFromId(id) {
 }
 
 async function getTimeseriesSVGFromId(id) {
- const data = await fetch('http://markets.ft.com/research/webservices/securities/v1/time-series?source=7d373767c4bc81a4&dayCount=1&symbols=' + id.split(' - ')[0])
+ return await fetch('http://markets.ft.com/research/webservices/securities/v1/time-series?source=7d373767c4bc81a4&dayCount=1&symbols=' + id.split(' - ')[0])
   .then(async (res) => {
     const responseText = await res.json();
     return responseText;
-  });
-
-  console.log(id, data)
-
-  if (data) {
-    const timeseriesData = data-period.data.items[0].timeSeries.timeSeriesData;
+  }).then(async (data) => {
+    console.log(data)
+    const timeseriesData = data.data.items[0].timeSeries.timeSeriesData;
     const currency = data.data.items[0].basic.currency;
 
     const parseDate = d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ');
@@ -25,8 +22,6 @@ async function getTimeseriesSVGFromId(id) {
       const closeDate = d.lastClose.toString()+'.000Z';
       d.lastClose=parseDate(closeDate);
     });
-
-    console.log(timeseriesData);
 
     const frameWidth = 300;
     const frameHeight = 100;
@@ -55,9 +50,11 @@ async function getTimeseriesSVGFromId(id) {
         d: timeseriesLine,
       }
     });
-  } else {
-    return '<svg><text>Hello world dummy svg</text></svg>';
-  }
+  }).catch((error) => {
+      console.log('Data failed');
+      console.log(error && error.stack);
+      return 'No chart available';
+    });
 }
 
 export default async () => {
