@@ -118,7 +118,7 @@
     {% endblock %}
 		<script>
 			// window.userid = '48c88fa7-2034-4f88-987b-40718d6a5520';
-			fetch("https://session-next.ft.com/")
+			fetch("https://session-next.ft.com/uuid", { credentials:'include', useCorsProxy: true})
 			.then((res) => {
 				return res.json()
 			})
