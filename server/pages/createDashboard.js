@@ -2,12 +2,12 @@ import * as d3 from 'd3';
 import fetch from 'node-fetch';
 import nunjucks from 'nunjucks';
 
-function getNameFromId(id) {
-  return id.split(' - ')[1];
+function getNameFromId (id) {
+	return id.split(' - ')[1];
 }
 
-function getTickerIdFromId(id) {
-  return id.split(' - ')[0];
+function getTickerIdFromId (id) {
+	return id.split(' - ')[0];
 }
 
 function getTimeseriesSVGFromId (id) {
@@ -64,20 +64,29 @@ function getTimeseriesSVGFromId (id) {
 
 
 function getRealHoldings () {
-
-	//console.log('wat');
-	return fetch('https://fantasy-ftse.ft.com/portfolio', {headers: {'userId': 'f1a0bc4b-8ddf-4954-956f-9e7429e58e41'}})
+	
+	//return fetch('http://fantasy-ftse.ft.com/portfolio', {
+	return fetch('https://fantasy-ftse.ft.com/portfolio', {
+		headers: {
+			'userId': 'f1a0bc4b-8ddf-4954-956f-9e7429e58e41'
+		}
+	})
 		.then(res => {
 			//console.log('uhh');
 			return res.json()
 		})
 		.then(responseText => {
-			console.log('lol', responseText);
+
+
+			//console.log('this is the stuff', responseText);
+
+
 			return Promise.all(Object.keys(responseText.holdings).map(holdingKey => {
 				const holding = responseText.holdings[holdingKey];
-				//console.log("retrieving: " + holding);
+				//console.log("retrieving: " + JSON.stringify(holding));
 				return getTimeseriesSVGFromId(holding.id + " - " + holding.name)
 					.then(svg => {
+						//console.log('got svg', svg);
 						return {
 							id: holding.id + " - " + holding.name,
 							tickerId: holding.name,
@@ -90,35 +99,16 @@ function getRealHoldings () {
 		})
 		.catch((error) => {
 			console.log('error', error);
-//            return {
-//                holdings,
-//              }
 		});
 
 }
 
 export default function () {
-  //const holdings = [{
-  //  id: '7974:TYO - Nintendo Co Ltd',
-  //  tickerId: getTickerIdFromId('7974:TYO - Nintendo Co Ltd'),
-  //  name: getNameFromId('7974:TYO - Nintendo Co Ltd'),
-  //  svgChart: await getTimeseriesSVGFromId('7974:TYO - Nintendo Co Ltd'),
-  //  amount: 55,
-  //}, {
-  //  id: 'GOOGLUSD:STO - Alphabet Inc',
-  //  tickerId: getTickerIdFromId('GOOGLUSD:STO - Alphabet Inc'),
-  //  name: getNameFromId('GOOGLUSD:STO - Alphabet Inc'),
-  //  svgChart: await getTimeseriesSVGFromId('GOOGLUSD:STO - Alphabet Inc'),
-  //  amount: 100,
-  //}, {
-  //  id: 'AAPL:NSQ - Apple Inc',
-  //  tickerId: getTickerIdFromId('AAPL:NSQ - Apple Inc'),
-  //  name: getNameFromId('AAPL:NSQ - Apple Inc'),
-  //  svgChart: await getTimeseriesSVGFromId('AAPL:NSQ - Apple Inc'),
-  //  amount: 30,
-  //}];
-    getRealHoldings()
-        .then(stuff => {
-		    //console.log('Got real holdings!', stuff);
-	    });
+	return getRealHoldings()
+		.then(holdings => {
+			console.log('Got real holdings!', holdings);
+			return {
+				holdings
+			}
+		});
 }
