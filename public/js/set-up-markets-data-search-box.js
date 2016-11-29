@@ -26,7 +26,7 @@ function buyThing(e, symbol) {
 	fetch('/portfolio/buy', {
 		headers:{
 			'Content-Type': 'application/json',
-			'userId': 'fake-user-id'
+			'userId': window.userId
 		},
 		method:'put',
 		body: JSON.stringify({

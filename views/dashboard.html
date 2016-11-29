@@ -32,7 +32,7 @@
 		function refreshValues () {
 			fetch('/portfolio', {
 				headers: {
-					userId: 'fake-user-id'
+					userId: window.userId
 				}
 			})
 					.then(res => res.json())
@@ -43,7 +43,10 @@
 					})
 		}
 
-		refreshValues();
+		setTimeout(() => {
+			refreshValues();
+		}, 500)
+
 
 	</script>
 
