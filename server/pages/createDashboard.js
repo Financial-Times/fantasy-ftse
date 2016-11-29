@@ -63,10 +63,10 @@ export default async () => {
     svgChart: await getTimeseriesSVGFromId('7974:TYO - Nintendo Co Ltd'),
     amount: 55,
   }, {
-    id: 'GOOGLUSD:STO - Alphabet Inc',
-    tickerId: getTickerIdFromId('GOOGLUSD:STO - Alphabet Inc'),
-    name: getNameFromId('GOOGLUSD:STO - Alphabet Inc'),
-    svgChart: await getTimeseriesSVGFromId('GOOGLUSD:STO - Alphabet Inc'),
+    id: 'GOOGL:NSQ - Alphabet Inc',
+    tickerId: getTickerIdFromId('GOOGL:NSQ - Alphabet Inc'),
+    name: getNameFromId('GOOGL:NSQ - Alphabet Inc'),
+    svgChart: await getTimeseriesSVGFromId('GOOGL:NSQ - Alphabet Inc'),
     amount: 100,
   }, {
     id: 'AAPL:NSQ - Apple Inc',
