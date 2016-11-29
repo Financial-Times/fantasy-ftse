@@ -59,9 +59,9 @@ function drawChart(dayCount) {
 
   var parseDate = d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ');
 
-  var baseFetchURL = "http://markets.ft.com/research/webservices/securities/v1/time-series-interday";
+  var baseFetchURL = "https://markets.ft.com/research/webservices/securities/v1/time-series-interday";
   if (dayCount === '1') {
-    baseFetchURL = "http://markets.ft.com/research/webservices/securities/v1/time-series";
+    baseFetchURL = "https://markets.ft.com/research/webservices/securities/v1/time-series";
   }
 
   d3.json(baseFetchURL + '?source=7d373767c4bc81a4&dayCount='+dayCount+'&symbols=' + window.tickerId, function (d) {

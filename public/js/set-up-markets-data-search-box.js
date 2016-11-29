@@ -56,7 +56,7 @@ function setUpSearchBox () {
 
 	const onSearchType = debounce(ev => {
 		// query markets data
-		return fetch('http://markets.ft.com/research/webservices/securities/v1/search?source=7d373767c4bc81a4&query=' + searchBox.value)
+		return fetch('https://markets.ft.com/research/webservices/securities/v1/search?source=7d373767c4bc81a4&query=' + searchBox.value)
 			.then(res => {
 				if(res.ok) {
 					return res.json();
