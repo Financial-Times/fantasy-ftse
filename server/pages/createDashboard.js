@@ -16,10 +16,12 @@ async function getTimeseriesSVGFromId(id) {
     const responseText = await res.json();
     return responseText;
   }).then(async (data) => {
-    const timeseriesData = data.data.items[0].timeSeries.timeSeriesData;
+    var timeseriesData = data.data.items[0].timeSeries.timeSeriesData;
     const currency = data.data.items[0].basic.currency;
 
     const parseDate = d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ');
+
+    timeseriesData = timeseriesData || [];
 
     timeseriesData.forEach(function(d) {
       const closeDate = d.lastClose.toString()+'.000Z';
@@ -55,6 +57,35 @@ async function getTimeseriesSVGFromId(id) {
     });
 }
 
+async function getHoldings() {
+    return await fetch('http://localhost:5000/portfolio',{headers: {'userId':'48c88fa7-2034-4f88-987b-40718d6a5521'}})
+        .then(async(res) => {
+                const responseText = await res.json();
+                const realHoldings = [];
+
+                for (var holding in responseText.holdings) {
+                    console.log("a holding" + holding);
+                   realHoldings.push({
+                       id: responseText.holdings[holding].id,
+                       tickerId: responseText.holdings[holding].name,
+                       name: responseText.holdings[holding].name,
+                       svgChart: await getTimeseriesSVGFromId(responseText.holdings[holding].id + "-" + responseText.holdings[holding].name),
+                       amount: 55,
+                     });
+                 }
+                //}
+                 console.log("complete");
+                 console.log(realHoldings);
+
+        }).catch((error) => {
+
+        console.log(error);
+//            return {
+//                holdings,
+//              }
+          });
+}
+
 export default async () => {
   const holdings = [{
     id: '7974:TYO - Nintendo Co Ltd',
@@ -75,7 +106,8 @@ export default async () => {
     svgChart: await getTimeseriesSVGFromId('AAPL:NSQ - Apple Inc'),
     amount: 30,
   }];
-
+    console.log("before getHoldings");
+    await getHoldings();
   return {
     holdings,
   }
