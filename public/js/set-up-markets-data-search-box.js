@@ -11,6 +11,16 @@ function debounce (func, wait) {
 	};
 }
 
+function openMarketsDataResult(e) {
+	e.preventDefault();
+	if(e.target.parentNode.style.height === "24px") {
+		e.target.parentNode.style.height = "auto";
+	} else {
+		e.target.parentNode.style.height = "24px";
+	}
+
+}
+
 function setUpSearchBox () {
 
 	const searchBox = document.querySelector('.js-search-box');
@@ -33,7 +43,16 @@ function setUpSearchBox () {
 				// show results
 				searchResultsUl.innerHTML = '';
 				stuff.data.searchResults.forEach(thing => {
-					searchResultsUl.innerHTML = searchResultsUl.innerHTML + '<li class="o-teaser__related-item"><a href="/funds/' + thing.symbol + '?companyName=' + thing.name + '">' + thing.symbol + ' - '  + thing.name + '</a></li>';
+					searchResultsUl.innerHTML = searchResultsUl.innerHTML + '' +
+						'<li class="o-teaser__related-item" style="height:24px; overflow:hidden">' +
+						'<a href="#" onclick="openMarketsDataResult(event)">' +
+						thing.symbol + ' - '  + thing.name + ' <span style="font-size:10px;">\u25BC</span>' +
+						'</a>' +
+						'<div>' +
+						'<button class="o-buttons">Buy</button> <input type="text" placeholder="quantity (default 1)" /> ' +
+						'<a href="/funds/' + thing.symbol + '?companyName=' + thing.name + '">See details</a>' +
+						'</div>' +
+						'</li>';
 				})
 
 			})
