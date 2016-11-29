@@ -163,7 +163,7 @@ function performTrade(req, res, isBuy) {
 		return d.collection('portfolios').findOne({id:req.get("userId")});
 	})
 	.then((r)=>{
-		// console.log(r);
+		console.log(r);
 		var tradeValue = price*quantity;
 		var cp = r.holdings[stock];
 		var currVolume = 0;
