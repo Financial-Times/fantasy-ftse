@@ -6,6 +6,14 @@
 	#ftse-trade {
 		text-align: center;
 	}
+
+  .line {
+    fill: none;
+    stroke: #9e2f50;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 </style>
 
 <div class="o-grid-container">
@@ -37,21 +45,22 @@
 	{% include "partials/markets-data-search.html" %}
 
 	<div id ="holdings-dashboard" class="o-grid-row">
-		<table>
+    <h3>Your holdings</h3>
+		<table class="o-table o-table--responsive-scroll" data-o-component="o-table">
 		  <thead>
 		    <tr>
           <th>Name</th>
-          <th>Performance</th>
-          <th>Amount owned</th>
+          <th style="text-align: center !important;">Performance (over past 24 hrs)</th>
+          <th data-o-table-data-type="numeric" class="o-table__cell--numeric">Amount owned</th>
           <th>Edit</th>
         </tr>
 		  </thead>
       <tbody>
         {% for holding in holdings %}
           <tr>
-            <td>{{ holding.name }}</td>
-            <td>{{ holding.svgChart | safe }}</td>
-            <td>{{ holding.amount }}</td>
+            <td><a href="funds/{{ holding.tickerId }}?companyName={{ holding.name }}">{{ holding.name }}</a></td>
+            <td style="text-align: center;">{{ holding.svgChart | safe }}</td>
+            <td data-o-table-data-type="numeric" class="o-table__cell--numeric">{{ holding.amount }}</td>
             <td>Buy/sell</td>
           </tr>
         {% endfor %}

@@ -4,7 +4,7 @@ text{
     font-family: MetricWeb, sans-serif;
 }
 </style>
-<g class="plot" transform="translate(10,10)">
+<g class="plot" transform="translate(10,0)">
   <path class="holdingLine" d="{{ line.d }}" stroke-width="5px" stroke-linejoin="round"  stroke-linecap="round" fill="none" stroke="#fff1e0"></path>
   <path class="holdingLine" d="{{ line.d }}" stroke-width="2px" stroke-linejoin="round"  stroke-linecap="round" fill="none" stroke="#9e2f50"></path>
 </g>
