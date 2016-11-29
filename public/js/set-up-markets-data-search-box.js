@@ -11,6 +11,43 @@ function debounce (func, wait) {
 	};
 }
 
+function openMarketsDataResult(e) {
+	e.preventDefault();
+	if(e.target.parentNode.style.height === "24px") {
+		e.target.parentNode.style.height = "auto";
+	} else {
+		e.target.parentNode.style.height = "24px";
+	}
+}
+
+function buyThing(e, symbol) {
+	const tickerId = symbol.split(':')[0];
+	const quantity = parseInt(e.target.previousElementSibling.value || 1);
+	fetch('/portfolio/buy', {
+		headers:{
+			'Content-Type': 'application/json',
+			'userId': 'fake-user-id'
+		},
+		method:'put',
+		body: JSON.stringify({
+			tickerId,
+			quantity
+		})
+	})
+		.then(res => {
+			return res.json();
+		})
+		.then(woop => {
+
+			if(woop.err) {
+				e.target.nextElementSibling.innerHTML = '<span style="color: red">' + woop.err + ': ' + woop.message + '</span>';
+			} else {
+				e.target.nextElementSibling.innerHTML = '<span style="color: green">Transaction successful</span>';
+				console.log('winnnar', woop);
+			}
+		})
+}
+
 function setUpSearchBox () {
 
 	const searchBox = document.querySelector('.js-search-box');
@@ -33,7 +70,17 @@ function setUpSearchBox () {
 				// show results
 				searchResultsUl.innerHTML = '';
 				stuff.data.searchResults.forEach(thing => {
-					searchResultsUl.innerHTML = searchResultsUl.innerHTML + '<li class="o-teaser__related-item"><a href="/funds/' + thing.symbol + '?companyName=' + thing.name + '">' + thing.symbol + ' - '  + thing.name + '</a></li>';
+					searchResultsUl.innerHTML = searchResultsUl.innerHTML + '' +
+						'<li class="o-teaser__related-item" style="height:24px; overflow:hidden">' +
+						'<a href="#" onclick="openMarketsDataResult(event)">' +
+						thing.symbol + ' - '  + thing.name + ' <span style="font-size:10px;">\u25BC</span>' +
+						'</a>' +
+						'<div>' +
+						'<input type="text" placeholder="quantity (default 1)" /> <button class="o-buttons" onclick="buyThing(event, \'' + thing.symbol + '\')">Buy</button> ' +
+						'<a href="/funds/' + thing.symbol + '?companyName=' + thing.name + '">See details</a>' +
+						'<div class="message"></div>' +
+						'</div>' +
+						'</li>';
 				})
 
 			})
