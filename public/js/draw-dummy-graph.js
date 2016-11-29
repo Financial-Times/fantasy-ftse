@@ -8,7 +8,7 @@
 
     var x = d3.scaleTime().range([0, width]),
         y = d3.scaleLinear().range([height, 0]),
-        z = d3.scaleOrdinal(d3.schemeCategory10);
+        z = d3.scaleOrdinal(["#275e86", "#9e2f50", "#d66d06"]);
 
     var line = d3.line()
         .curve(d3.curveBasis)
@@ -43,13 +43,13 @@
 
       g.append("g")
           .attr("class", "axis axis--y")
-          .call(d3.axisLeft(y))
+          .call(d3.axisLeft(y).ticks(5))
         .append("text")
           .attr("transform", "rotate(-90)")
           .attr("y", 6)
           .attr("dy", "0.71em")
           .attr("fill", "#000")
-          .text("Cost, ºF");
+          .text("Cost");
 
       var city = g.selectAll(".city")
         .data(cities)
