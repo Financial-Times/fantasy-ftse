@@ -58,10 +58,6 @@ function lookupUPPID(tickerId) {
 }
 
 function articlesByCompany(companyName) {
-	// 				"queryContext" : {
-					// 	"curations": ["ARTICLES","BLOGS","PODCASTS","VIDEOS"]
-					// }
-
 	var body = {
 		"queryString": `organisations:${companyName}`,
 		"queryContext":{"curations":["ARTICLES","BLOGS","PODCASTS","VIDEOS"]},
