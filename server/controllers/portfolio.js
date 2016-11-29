@@ -13,16 +13,14 @@ const newPortfolio = {
 	id: "",
 	value: 0.00,
 	cash : 10000.00,
-	holdings: [],
+	holdings: {},
 	rank: 0,
 	history : []
 };
 
 const newHolding = {
-	stock : {
-		id :"",
-		name: ""
-	},
+	id :"",
+	name: "",
 	quantity : 0
 };
 
@@ -138,7 +136,7 @@ function performTrade(req, res, isBuy) {
 			console.log(`${isBuy?"Buying":"Selling"} ${quantity} of ${stock} @ ${price}`);
 			var history = Object.assign({}, newHistory);
 			history.date = new Date().toJSON();
-			history.portfolio =  { value: r.value, cash: r.cash, holdings: [...r.holdings], rank: r.rank };
+			history.portfolio =  { value: r.value, cash: r.cash, holdings: r.holdings, rank: r.rank };
 			console.log(history);
 			r.history.push(history);
 			console.log(r);
@@ -149,11 +147,13 @@ function performTrade(req, res, isBuy) {
 				r.value = r.value - tradeValue;
 				r.cash = r.cash + tradeValue;
 			}
-			var holding = r.holdings.find((h)=>{ return h.stock.id === stock; });
+
+			// var holding = r.holdings.find((h)=>{ return h.stock.id === stock; });
+			var holding = r.holdings[stock];
 			if (holding == undefined) {
 								holding = Object.assign({}, newHolding);
-								holding.stock.id = stock;
-								holding.stock.name = stockName;
+								holding.id = stock;
+								holding.name = stockName;
 			}
 			console.log(holding);
 			if (isBuy) {
@@ -164,7 +164,7 @@ function performTrade(req, res, isBuy) {
 				r.cash = r.cash + tradeValue;
 			}
 			console.log(holding);
-			r.holdings.push(holding);
+			r.holdings[stock] = holding;
 			console.log(r.holdings);
 			console.log("Update db");
 			// {holdings: r.holdings, value: r.value, cash: r.cash}
