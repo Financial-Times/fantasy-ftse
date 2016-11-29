@@ -64,7 +64,7 @@ function getTimeseriesSVGFromId (id) {
 
 
 function getRealHoldings () {
-	
+
 	//return fetch('http://fantasy-ftse.ft.com/portfolio', {
 	return fetch('https://fantasy-ftse.ft.com/portfolio', {
 		headers: {
@@ -92,7 +92,7 @@ function getRealHoldings () {
 							tickerId: holding.name,
 							name: holding.name,
 							svgChart: svg,
-							amount: 55
+							amount: holding.quantity
 						}
 					})
 			}));
@@ -106,7 +106,7 @@ function getRealHoldings () {
 export default function () {
 	return getRealHoldings()
 		.then(holdings => {
-			console.log('Got real holdings!', holdings);
+			//console.log('Got real holdings!', holdings);
 			return {
 				holdings
 			}
