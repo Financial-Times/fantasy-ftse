@@ -112,28 +112,51 @@ function drawChart(dayCount) {
         var article = articles[i];
         var articleTimestamp = d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate);
 
-        var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
-        var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
-        // console.log(articleTimestamp, xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
+        // don't display circles before graph starts
+        if (xScale(articleTimestamp) >= 0) {
+          var bisect = d3.bisector(function(d) { return d.lastClose; }).left;
+          var item = timeseriesData[bisect(timeseriesData, articleTimestamp)];
+          // console.log(articleTimestamp, xScale(articleTimestamp), findYatX(xScale(articleTimestamp), timeseriesLine.node()))
 
-        annotations.append('circle')
-          .attr('cx', xScale(articleTimestamp))
-          .attr('cy', findYatX(xScale(articleTimestamp), timeseriesLine.node()))
-          .attr('r', 6)
-          .attr('fill', '#fff1e0')
-          .attr('stroke', '#9e2f50')
-          .attr('stroke-width', '3');
+          annotations
+            .append('a')
+            .attr('xlink:href', '#article-'+i)
+            .append('circle')
+            .attr('cx', xScale(articleTimestamp))
+            .attr('cy', findYatX(xScale(articleTimestamp), timeseriesLine.node()))
+            .attr('r', 6)
+            .attr('fill', '#fff1e0')
+            .attr('stroke', '#9e2f50')
+            .attr('stroke-width', '3');
 
-        var articleRow = d3.select('#ticker-articles tbody')
-          .append('tr')
+          var articleTeaser = d3.select('#ticker-articles .o-teaser')
+            .append('div')
+            .attr('class', 'o-teaser__content')
+            .attr('id', 'article-'+i);
 
-        articleRow
-          .append('td')
-            .html(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)))
+          articleTeaser
+            .append('a')
+              .attr('class', 'o-teaser__tag')
+              .attr('href', '#')
+              .text('World');
 
-        articleRow
-          .append('td')
-            .html("<a href='//ft.com/content/" + article.uuid + "'>" + article.title + "</a>: "+ article.teaser)
+          articleTeaser
+            .append('h2')
+            .attr('class', 'o-teaser__heading')
+            .append('a')
+            .attr('href', '//ft.com/content/' + article.uuid)
+            .text(article.title);
+
+          articleTeaser
+            .append('p')
+            .attr('class', 'o-teaser__standfirst')
+            .text(article.teaser);
+
+          articleTeaser
+            .append('div')
+            .attr('class', 'o-teaser__timestamp')
+            .text(d3.timeFormat("%b %d, %Y %H:%M")(d3.utcParse('%Y-%m-%dT%H:%M:%SZ')(article.publishedDate)));
+        }
       }
     });
 
@@ -150,6 +173,14 @@ d3.select(window).on('resize', init());
 var timePeriodButtons = document.querySelectorAll('#ticker-timeseries-controls button');
 for (var i = 0; i < timePeriodButtons.length; i++) {
   timePeriodButtons[i].addEventListener('click', function(event) {
+    // change attributes on button (view)
+    for (var j = 0; j < timePeriodButtons.length; j++) {
+      var button = timePeriodButtons[j];
+      button.setAttribute('aria-selected', false);
+    }
+    this.setAttribute('aria-selected', true);
+
+    // redraw chart
     var period = this.getAttribute("data-period");
     drawChart(period);
   });
