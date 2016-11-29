@@ -1,4 +1,4 @@
-import d3 from 'd3';
+import * as d3 from 'd3';
 import fetch from 'node-fetch';
 import nunjucks from 'nunjucks';
 
@@ -12,7 +12,6 @@ async function getTimeseriesSVGFromId(id) {
     const responseText = await res.json();
     return responseText;
   }).then(async (data) => {
-    console.log(data)
     const timeseriesData = data.data.items[0].timeSeries.timeSeriesData;
     const currency = data.data.items[0].basic.currency;
 
@@ -38,16 +37,11 @@ async function getTimeseriesSVGFromId(id) {
       .x(function(d) { return xScale(d.lastClose); })
       .y(function(d) { return yScale(d.close); });
 
-    const timeseriesLine = g.append('path')
-        .datum(timeseriesData)
-        .attr('class', 'line')
-        .attr('d', line);
-
     return nunjucks.render('partials/holdings-timeseries.svg', {
       width: frameWidth,
       height: frameHeight,
       line: {
-        d: timeseriesLine,
+        d: line(timeseriesData),
       }
     });
   }).catch((error) => {
