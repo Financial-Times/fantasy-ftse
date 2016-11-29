@@ -27,7 +27,7 @@ const newHolding = {
 };
 
 const newHistory = {
-	date: (new Date()).toJSON(),
+	date: null,
 	portfolio : {}
 };
 
@@ -88,18 +88,18 @@ function addStockInfo(req, res) {
 			console.log(req.body);
 			return Promise.resolve(mdResp.Status);
 		} else {
-			Promise.reject(mdResp.Status);
+			return Promise.reject(mdResp.Status);
 		}
 	}).catch((err) => {
 		console.log(err);
-		Promise.reject(err);
+		throw err;
 	});
 }
 
 function buy(req, res){
 	addStockInfo(req, res)
 	.then(()=>{
-			return performTrade(req, resp, true);
+			return performTrade(req, res, true);
 	})
 	.catch((err) => {
 		res.status(500).json({err});
@@ -109,21 +109,24 @@ function buy(req, res){
 function sell(req, res){
 	addStockInfo(req, res)
 	.then(()=>{
-			return performTrade(req, resp, false);
+			return performTrade(req, res, false);
 	})
 	.catch((err) => {
 		res.status(500).json({err});
 	});
 }
 
-function performTrade(req, rep, isBuy) {
+function performTrade(req, res, isBuy) {
 	var stock=req.body.tickerId;
 	var stockName = req.body.stockName;
 	var quantity=req.body.quantity;
 	var price = req.body.price;
+	console.log(`performTrade: ${isBuy?"Buy":"Sell"} ${quantity} of ${stock} @ ${price}`);
+	var db;
 	return getConnection()
-	.then((db)=>{
-		return db.collection('portfolios').findOne({id});
+	.then((d)=>{
+		db=d;
+		return d.collection('portfolios').findOne({id:req.get("userId")});
 	})
 	.then((r)=>{
 		console.log(r);
@@ -132,10 +135,13 @@ function performTrade(req, rep, isBuy) {
 			delete r["_id"];
 			req.status(402).json({err: "NotEnoughDosh", message: `You have ${r.cash}, stock ${price}*${quantity}=${tradeValue}. You are short by ${tradeValue-r.cash}`});
 		} else {
+			console.log(`${isBuy?"Buying":"Selling"} ${quantity} of ${stock} @ ${price}`);
 			var history = Object.assign({}, newHistory);
+			history.date = new Date().toJSON();
 			history.portfolio =  { value: r.value, cash: r.cash, holdings: [...r.holdings], rank: r.rank };
+			console.log(history);
 			r.history.push(history);
-
+			console.log(r);
 			if (isBuy) {
 				r.value = r.value + tradeValue;
 				r.cash = r.cash - tradeValue;
@@ -143,29 +149,39 @@ function performTrade(req, rep, isBuy) {
 				r.value = r.value - tradeValue;
 				r.cash = r.cash + tradeValue;
 			}
-
-			var holding = r.holdings.find((element)=>{ return h.id === stock; });
+			var holding = r.holdings.find((h)=>{ return h.stock.id === stock; });
 			if (holding == undefined) {
 								holding = Object.assign({}, newHolding);
+								holding.stock.id = stock;
+								holding.stock.name = stockName;
 			}
-			holding.stock.id = stock;
-			holding.stock.name = stockName;
+			console.log(holding);
 			if (isBuy) {
 				holding.quantity = holding.quantity + quantity;
+				r.cash = r.cash - tradeValue;
 			} else {
 				holding.quantity = holding.quantity - quantity;
+				r.cash = r.cash + tradeValue;
 			}
+			console.log(holding);
 			r.holdings.push(holding);
-
-			db.updateOne(r).then((r)=>{
-				console.log(r);
+			console.log(r.holdings);
+			console.log("Update db");
+			// {holdings: r.holdings, value: r.value, cash: r.cash}
+			return db.collection('portfolios').updateOne({id:r.id}, {$set: r})
+			.then((result)=>{
+				console.log(result);
 				db.close();
 				delete r["_id"];
-				req.status(200).json(r);
+				res.status(200).json(r);
 			}).catch((err) => {
+				console.log(err);
 				db.close();
-				req.status(500).json(err);
+				res.status(500).json(err);
 			});
 		}
+	})
+	.catch((err)=>{
+		console.log(err);
 	});
 }
