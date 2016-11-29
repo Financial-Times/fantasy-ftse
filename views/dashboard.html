@@ -6,41 +6,70 @@
 	#ftse-trade {
 		text-align: center;
 	}
+
+  .line {
+    fill: none;
+    stroke: #9e2f50;
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 </style>
 
 <div class="o-grid-container">
-	<div id = "ftse-ranking" class="o-grid-row">
-		<div data-o-grid-colspan="4"><div class="demo-cell"> Your Ranking <br/> 2,480</div></div>
-		<div data-o-grid-colspan="4"><div class="demo-cell" style="font-size:x-large"> Your Cash<br/> £4800 </div></div>
-		<div data-o-grid-colspan="4"><div class="demo-cell">Your Capital <br/> £10000</div></div>
-	</div>
+	<!--<div id = "ftse-ranking" class="o-grid-row">-->
+		<!--<div data-o-grid-colspan="4"><div class="demo-cell"> Your Ranking <br/> 2,480</div></div>-->
+		<!--<div data-o-grid-colspan="4"><div class="demo-cell" style="font-size:x-large"> Portfolio Value<br/> £4800 </div></div>-->
+		<!--<div data-o-grid-colspan="4"><div class="demo-cell">Your free cash <br/> £10000</div></div>-->
+	<!--</div>-->
 
-	<div id = "ftse-ranking-2" class="o-grid-row">
-		<div id="graph-holder">
-			<svg height="200" width="900">
-				<path d="M11 10h1v3c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h3v1H1v10h10V10zM6 2l2.25 2.25-3.25 3.25 1.5 1.5 3.25-3.25 2.25 2.25V2H6z"></path>
-			</svg>
-		</div>
+	<!--<div id = "ftse-ranking-2" class="o-grid-row">-->
+		<!--<div id="graph-holder">-->
+			<!--<svg height="200" width="900">-->
+				<!--<path d="M11 10h1v3c0 0.55-0.45 1-1 1H1c-0.55 0-1-0.45-1-1V3c0-0.55 0.45-1 1-1h3v1H1v10h10V10zM6 2l2.25 2.25-3.25 3.25 1.5 1.5 3.25-3.25 2.25 2.25V2H6z"></path>-->
+			<!--</svg>-->
+		<!--</div>-->
+	<!--</div>-->
 
-
-
-	</div>
-
-	<div id = "ftse-trade" class="o-grid-row">
-		<div data-o-grid-colspan="12"><div class="demo-cell">
-			<button class="o-buttons">Buy </button>
-			<button class="o-buttons" aria-selected="true"> Sell </button>
-		</div>
-		</div>
-	</div>
+	<!--<div id = "ftse-trade" class="o-grid-row">-->
+		<!--<div data-o-grid-colspan="12"><div class="demo-cell">-->
+			<!--<button class="o-buttons">Buy </button>-->
+			<!--<button class="o-buttons" aria-selected="true"> Sell </button>-->
+		<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
 
 	{% include "partials/markets-data-search.html" %}
+
+	<div id ="holdings-dashboard" class="o-grid-row">
+    <h3>Your holdings</h3>
+		<table class="o-table o-table--responsive-scroll" data-o-component="o-table">
+		  <thead>
+		    <tr>
+          <th>Name</th>
+          <th style="text-align: center !important;">Performance (over past 24 hrs)</th>
+          <th data-o-table-data-type="numeric" class="o-table__cell--numeric">Amount owned</th>
+          <th>Edit</th>
+        </tr>
+		  </thead>
+      <tbody>
+        {% for holding in holdings %}
+          <tr>
+            <td><a href="funds/{{ holding.tickerId }}?companyName={{ holding.name }}">{{ holding.name }}</a></td>
+            <td style="text-align: center;">{{ holding.svgChart | safe }}</td>
+            <td data-o-table-data-type="numeric" class="o-table__cell--numeric">{{ holding.amount }}</td>
+            <td>Buy/sell</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+		</table>
+	</div>
 
 	<div class="o-grid-row" style="padding: 20px 0px">
 		<div class="demo-container ftse-teaser demo-container--standout">
 			<div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
 				<div class="o-card__image o-card__image--">
-					<img src="http://creoleindc.typepad.com/.a/6a00d8341c5e0053ef017617491cee970c-800wi?source=o-card-demo" alt="demo image"></img>
+					<img src="https://creoleindc.typepad.com/.a/6a00d8341c5e0053ef017617491cee970c-800wi?source=o-card-demo" alt="demo image"></img>
 				</div>
 
 				<div class="o-card__content">
@@ -80,7 +109,7 @@
 		<div class="demo-container ftse-teaser demo-container--standout">
 			<div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
 				<div class="o-card__image o-card__image--">
-					<img src="http://www.telegraph.co.uk/content/dam/news/2016/07/13/makes_a_speech_outside_10_Downing_Street_London_after_meeti-large_trans++LfZdHPP_Jms68Nei_IBhrlUgUS7wjdMtk9zfalez_c4.jpg?source=o-card-demo" alt="demo image"></img>
+					<img src="https://s3-eu-west-1.amazonaws.com/spiked-online.com/images/Theresa_may_PM.jpg" alt="demo image"></img>
 				</div>
 
 				<div class="o-card__content">
@@ -97,5 +126,5 @@
 		</div>
 	</div>
 </div>
-<script src = "/js/draw-dummy-graph.js"></script>
+<!--<script src = "/js/draw-dummy-graph.js"></script>-->
 {% endblock %}

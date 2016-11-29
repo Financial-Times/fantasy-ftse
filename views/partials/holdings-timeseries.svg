@@ -1,0 +1,11 @@
+<svg class="timeseries" width="{{ width }}" height="{{ height }}" viewBox="0 0 {{ width }} {{ height }}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMinYMin meet" font-family="MetricWeb, sans-serif">
+<style>
+text{
+    font-family: MetricWeb, sans-serif;
+}
+</style>
+<g class="plot" transform="translate(10,0)">
+  <path class="holdingLine" d="{{ line.d }}" stroke-width="5px" stroke-linejoin="round"  stroke-linecap="round" fill="none" stroke="#fff1e0"></path>
+  <path class="holdingLine" d="{{ line.d }}" stroke-width="2px" stroke-linejoin="round"  stroke-linecap="round" fill="none" stroke="#9e2f50"></path>
+</g>
+</svg>
