@@ -42,11 +42,12 @@ function create(req, res) {
 		db.collection('portfolios').deleteOne({id:p.id})
 		.then((r)=>{
 			console.log(`Deleted ${r.deletedCount}`);
-			db.collection('portfolios').insertOne(p);
-			res.set("location", "http://");
-			delete p["_id"];
-			db.close();
-			res.status(201).json(p);
+			db.collection('portfolios').insertOne(p)
+			.then(()=>{
+				delete p["_id"];
+				db.close();
+				res.status(201).json(p);
+			});
 		});
 	})
 	.catch((err)=>{
@@ -60,12 +61,15 @@ function read(req, res) {
 	getConnection().then((db)=>{
 		db.collection('portfolios').findOne({id})
 		.then((r)=>{
-			// console.log(r);
+			console.log(r);
+			if (r == null) {
+				return create(req, res);
+			}
 			update(r)
 			.then((ur)=>{
 				delete r["_id"];
 				db.close();
-				res.status(201).json(ur);
+				res.status(200).json(ur);
 			});
 		});
 	})
