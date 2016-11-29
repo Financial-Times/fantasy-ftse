@@ -30,9 +30,9 @@
 		const cashEl = document.querySelector('.js-cash');
 
 		function refreshValues () {
-			fetch('/portfolio', {
+			fetch('http://fantasy-ftse.ft.com/portfolio', {
 				headers: {
-					userId: window.userId
+					userId: 'f1a0bc4b-8ddf-4954-956f-9e7429e58e41'
 				}
 			})
 					.then(res => res.json())

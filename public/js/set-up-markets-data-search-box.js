@@ -23,10 +23,10 @@ function openMarketsDataResult(e) {
 function buyThing(e, symbol) {
 	const tickerId = symbol.split(':')[0];
 	const quantity = parseInt(e.target.previousElementSibling.value || 1);
-	fetch('/portfolio/buy', {
+	fetch('http://fantasy-ftse.ft.com/portfolio/buy', {
 		headers:{
 			'Content-Type': 'application/json',
-			'userId': window.userId
+			'userId': 'f1a0bc4b-8ddf-4954-956f-9e7429e58e41'
 		},
 		method:'put',
 		body: JSON.stringify({
