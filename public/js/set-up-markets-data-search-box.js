@@ -43,6 +43,7 @@ function buyThing(e, symbol) {
 				e.target.nextElementSibling.innerHTML = '<span style="color: red">' + woop.err + ': ' + woop.message + '</span>';
 			} else {
 				e.target.nextElementSibling.innerHTML = '<span style="color: green">Transaction successful</span>';
+				refreshValues();
 				console.log('winnnar', woop);
 			}
 		})

@@ -18,10 +18,34 @@
 
 <div class="o-grid-container">
 	<div id = "ftse-ranking" class="o-grid-row">
-		<div data-o-grid-colspan="4"><div class="demo-cell"> Your Ranking <br/> 2,480</div></div>
-		<div data-o-grid-colspan="4"><div class="demo-cell" style="font-size:x-large"> Portfolio Value<br/> £4800 </div></div>
-		<div data-o-grid-colspan="4"><div class="demo-cell">Your free cash <br/> £10000</div></div>
+		<div data-o-grid-colspan="4"><div class="demo-cell"> Your Ranking <br/> <span class="js-rank">2,480</span></div></div>
+		<div data-o-grid-colspan="4"><div class="demo-cell" style="font-size:x-large"> Portfolio Value<br/> <span class="js-value">£4800</span></div></div>
+		<div data-o-grid-colspan="4"><div class="demo-cell">Your free cash <br/> <span class="js-cash">£10000</span></div></div>
 	</div>
+
+	<script>
+
+		const rankEl = document.querySelector('.js-rank');
+		const valueEl = document.querySelector('.js-value');
+		const cashEl = document.querySelector('.js-cash');
+
+		function refreshValues () {
+			fetch('/portfolio', {
+				headers: {
+					userId: 'fake-user-id'
+				}
+			})
+					.then(res => res.json())
+					.then(stuff => {
+						rankEl.innerHTML = parseInt(Math.random() * 40);
+						valueEl.innerHTML = '£' + stuff.value.toFixed(2);
+						cashEl.innerHTML = '£' + stuff.cash.toFixed(2);
+					})
+		}
+
+		refreshValues();
+
+	</script>
 
 	<!--<div id = "ftse-ranking-2" class="o-grid-row">-->
 		<!--<div id="graph-holder">-->
