@@ -119,7 +119,7 @@ function addStockInfo(req, res) {
 			// console.log(req.body);
 			req.body.price = mdResp.LastPrice;
 			req.body.stockName = mdResp.Name;
-			// console.log(req.body);
+			console.log(req.body);
 			return Promise.resolve(mdResp.Status);
 		} else {
 			return Promise.reject(mdResp.Status);
