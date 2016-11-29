@@ -57,27 +57,24 @@ async function getTimeseriesSVGFromId(id) {
     });
 }
 
-async function getHoldings() {
+
+async function getRealHoldings() {
     return await fetch('http://localhost:5000/portfolio',{headers: {'userId':'48c88fa7-2034-4f88-987b-40718d6a5521'}})
         .then(async(res) => {
                 const responseText = await res.json();
                 const realHoldings = [];
-
                 for (var holding in responseText.holdings) {
-                    console.log("a holding" + holding);
+                    console.log("retrieving: " + holding);
                    realHoldings.push({
-                       id: responseText.holdings[holding].id,
+                       id: responseText.holdings[holding].id + " - " + responseText.holdings[holding].name,
                        tickerId: responseText.holdings[holding].name,
                        name: responseText.holdings[holding].name,
-                       svgChart: await getTimeseriesSVGFromId(responseText.holdings[holding].id + "-" + responseText.holdings[holding].name),
+                       svgChart: await getTimeseriesSVGFromId(responseText.holdings[holding].id + " - " + responseText.holdings[holding].name),
                        amount: 55,
                      });
                  }
-                //}
-                 console.log("complete");
-                 console.log(realHoldings);
-
-        }).catch((error) => {
+                 return realHoldings;
+                }).catch((error) => {
 
         console.log(error);
 //            return {
@@ -106,9 +103,8 @@ export default async () => {
     svgChart: await getTimeseriesSVGFromId('AAPL:NSQ - Apple Inc'),
     amount: 30,
   }];
-    console.log("before getHoldings");
-    await getHoldings();
-  return {
-    holdings,
-  }
+    var value = await getRealHoldings();
+    console.log(value);
+    console.log(holdings);
+    return {value};
 };
