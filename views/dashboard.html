@@ -85,7 +85,7 @@
             <td><a href="funds/{{ holding.tickerId }}?companyName={{ holding.name }}">{{ holding.name }}</a></td>
             <td style="text-align: center;">{{ holding.svgChart | safe }}</td>
             <td data-o-table-data-type="numeric" class="o-table__cell--numeric">{{ holding.amount }}</td>
-            <td>Buy/sell</td>
+            <td><button class="o-buttons">Buy</button> <button class="o-buttons" aria-pressed="true">Sell</button></td>
           </tr>
         {% endfor %}
       </tbody>
