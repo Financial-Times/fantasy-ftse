@@ -117,7 +117,14 @@
     <!--- YOUR CUSTOM STUFF GOES HERE.--->
     {% endblock %}
 		<script>
-			window.userid = '48c88fa7-2034-4f88-987b-40718d6a5520';
+			// window.userid = '48c88fa7-2034-4f88-987b-40718d6a5520';
+			fetch("https://session-next.ft.com/")
+			.then((res) => {
+				return res.json()
+			})
+			.then((json)=>{
+				window.userId = json.uuid;
+			})
 		</script>
 </body>
 
