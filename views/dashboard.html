@@ -36,6 +36,29 @@
 
 	{% include "partials/markets-data-search.html" %}
 
+	<div id ="holdings-dashboard" class="o-grid-row">
+		<table>
+		  <thead>
+		    <tr>
+          <th>Name</th>
+          <th>Performance</th>
+          <th>Amount owned</th>
+          <th>Edit</th>
+        </tr>
+		  </thead>
+      <tbody>
+        {% for holding in holdings %}
+          <tr>
+            <td>{{ holding.name }}</td>
+            <td>{{ holding.svgChart | safe }}</td>
+            <td>{{ holding.amount }}</td>
+            <td>Buy/sell</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+		</table>
+	</div>
+
 	<div class="o-grid-row" style="padding: 20px 0px">
 		<div class="demo-container ftse-teaser demo-container--standout">
 			<div class="o-card o-card--standout o-card--image-" data-o-component="o-card">
