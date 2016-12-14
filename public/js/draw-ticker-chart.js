@@ -64,7 +64,7 @@ function drawChart(dayCount) {
     baseFetchURL = "https://markets.ft.com/research/webservices/securities/v1/time-series";
   }
 
-  d3.json(baseFetchURL + '?source=7d373767c4bc81a4&dayCount='+dayCount+'&symbols=' + window.tickerId, function (d) {
+  d3.json(baseFetchURL + '?source=59da6cdd1d8fd97c&dayCount='+dayCount+'&symbols=' + window.tickerId, function (d) {
     var timeseriesData = d.data.items[0].timeSeries.timeSeriesData;
     var currency = d.data.items[0].basic.currency;
 
