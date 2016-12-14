@@ -11,7 +11,7 @@ function getTickerIdFromId (id) {
 }
 
 function getTimeseriesSVGFromId (id) {
-	return fetch('http://markets.ft.com/research/webservices/securities/v1/time-series?source=7d373767c4bc81a4&dayCount=1&symbols=' + id.split(' - ')[0])
+	return fetch('http://markets.ft.com/research/webservices/securities/v1/time-series?source=59da6cdd1d8fd97c&dayCount=1&symbols=' + id.split(' - ')[0])
 		.then(res => res.json())
 		.then(data => {
 			var timeseriesData = data.data.items[0].timeSeries.timeSeriesData;
