@@ -11,7 +11,7 @@ function getTickerIdFromId (id) {
 }
 
 function getTimeseriesSVGFromId (id) {
-	return fetch('http://markets.ft.com/research/webservices/securities/v1/time-series?source=7d373767c4bc81a4&dayCount=1&symbols=' + id.split(' - ')[0])
+	return fetch('http://markets.ft.com/research/webservices/securities/v1/time-series?source=59da6cdd1d8fd97c&dayCount=1&symbols=' + id.split(' - ')[0])
 		.then(res => res.json())
 		.then(data => {
 			var timeseriesData = data.data.items[0].timeSeries.timeSeriesData;
@@ -66,7 +66,7 @@ function getTimeseriesSVGFromId (id) {
 function getRealHoldings () {
 
 	//return fetch('http://fantasy-ftse.ft.com/portfolio', {
-	return fetch('https://fantasy-ftse.ft.com/portfolio', {
+		return fetch('https://fantasy-ftse.ft.com/portfolio', {
 		headers: {
 			'userId': 'f1a0bc4b-8ddf-4954-956f-9e7429e58e41'
 		}
@@ -81,21 +81,27 @@ function getRealHoldings () {
 			//console.log('this is the stuff', responseText);
 
 
-			return Promise.all(Object.keys(responseText.holdings).map(holdingKey => {
-				const holding = responseText.holdings[holdingKey];
-				//console.log("retrieving: " + JSON.stringify(holding));
-				return getTimeseriesSVGFromId(holding.id + " - " + holding.name)
-					.then(svg => {
-						//console.log('got svg', svg);
-						return {
-							id: holding.id + " - " + holding.name,
-							tickerId: holding.name,
-							name: holding.name,
-							svgChart: svg,
-							amount: holding.quantity
-						}
-					})
-			}));
+			return Promise.all(Object.keys(responseText.holdings)
+				.filter(holdingKey => {
+					const holding = responseText.holdings[holdingKey];
+					return holding.quantity > 0;
+				})
+				.map(holdingKey => {
+					const holding = responseText.holdings[holdingKey];
+					//console.log("retrieving: " + JSON.stringify(holding));
+					return getTimeseriesSVGFromId(holding.id + " - " + holding.name)
+						.then(svg => {
+							//console.log('got svg', svg);
+							return {
+								id: holding.id + " - " + holding.name,
+								tickerId: holding.name,
+								actualTickerId: holding.id,
+								name: holding.name,
+								svgChart: svg,
+								amount: holding.quantity
+							}
+						})
+				}));
 		})
 		.catch((error) => {
 			console.log('error', error);
@@ -106,7 +112,7 @@ function getRealHoldings () {
 export default function () {
 	return getRealHoldings()
 		.then(holdings => {
-			//console.log('Got real holdings!', holdings);
+			console.log('Got real holdings!', holdings);
 			return {
 				holdings
 			}
