@@ -16,7 +16,7 @@ const app = express();
 dotenv.config({silent: true});
 app.disable('x-powered-by');
 
-app.use(cors(options));
+app.use(cors());
 
 
 // function addUserId(req, res, next) {
