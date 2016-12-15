@@ -108,21 +108,23 @@ function update(portfolio) {
 
 function addStockInfo(req, res) {
 	var stock=req.body.tickerId;
+	console.log(req.body);
+	console.log(`stock ${stock}`);
 	return fetch(`http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=${stock}`)
 	.then ((apiRes) => {
-		// console.log(apiRes.status);
+		console.log(apiRes.status);
 		return apiRes.json();
 	})
 	.then((mdResp) => {
-		// console.log(mdResp);
+		console.log(mdResp);
 		if (mdResp.Status === "SUCCESS") {
-			// console.log(req.body);
+			console.log(req.body);
 			req.body.price = mdResp.LastPrice;
 			req.body.stockName = mdResp.Name;
 			console.log(req.body);
 			return Promise.resolve(mdResp.Status);
 		} else {
-			return Promise.reject(mdResp.Status);
+			return Promise.reject(mdResp.Message);
 		}
 	}).catch((err) => {
 		console.log(err);

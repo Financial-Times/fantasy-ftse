@@ -2,6 +2,8 @@ import * as d3 from 'd3';
 import fetch from 'node-fetch';
 import nunjucks from 'nunjucks';
 
+const source=process.env.SOURCE;
+
 function getNameFromId (id) {
 	return id.split(' - ')[1];
 }
@@ -11,7 +13,7 @@ function getTickerIdFromId (id) {
 }
 
 function getTimeseriesSVGFromId (id) {
-	return fetch('http://markets.ft.com/research/webservices/securities/v1/time-series?source=59da6cdd1d8fd97c&dayCount=1&symbols=' + id.split(' - ')[0])
+	return fetch(`http://markets.ft.com/research/webservices/securities/v1/time-series?source=${source}&dayCount=1&symbols=${id.split(' - ')[0]}`)
 		.then(res => res.json())
 		.then(data => {
 			var timeseriesData = data.data.items[0].timeSeries.timeSeriesData;
@@ -99,8 +101,8 @@ function getRealHoldings () {
 								name: holding.name,
 								svgChart: svg,
 								amount: holding.quantity
-							}
-						})
+							};
+						});
 				}));
 		})
 		.catch((error) => {
@@ -115,6 +117,6 @@ export default function () {
 			console.log('Got real holdings!', holdings);
 			return {
 				holdings
-			}
+			};
 		});
 }
