@@ -10,6 +10,7 @@ import dotenv from 'dotenv';
 import * as portfolio from './controllers/portfolio';
 import bodyParser from 'body-parser';
 import fetch from 'node-fetch';
+import cors from 'cors';
 
 const app = express();
 dotenv.config({silent: true});
