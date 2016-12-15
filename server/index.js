@@ -15,31 +15,33 @@ const app = express();
 dotenv.config({silent: true});
 app.disable('x-powered-by');
 
+app.use(cors(options));
 
-function addUserId(req, res, next) {
-	console.log("addUserId");
-	delete req.headers.host;
-	console.log("addUserId deleted host");
-	console.log(fetch);
-	fetch('https://session-next.ft.com', {headers:req.headers})
-	.then((apiRes)=>{
-		console.log("resp recieved");
-		console.log(apiRes.status);
-		return apiRes.json();
-	})
-	.then((json)=>{
-		console.log("json recieved");
-		console.log(json);
-		req.set("userId", json.uuid);
-		console.log(req.get("userId"));
-		next();
-	})
-	.catch((err)=>{
-		console.log("aaaarrrsse");
-		console.log(err);
-		next(err);
-	});
-};
+
+// function addUserId(req, res, next) {
+// 	console.log("addUserId");
+// 	delete req.headers.host;
+// 	console.log("addUserId deleted host");
+// 	console.log(fetch);
+// 	fetch('https://session-next.ft.com', {headers:req.headers})
+// 	.then((apiRes)=>{
+// 		console.log("resp recieved");
+// 		console.log(apiRes.status);
+// 		return apiRes.json();
+// 	})
+// 	.then((json)=>{
+// 		console.log("json recieved");
+// 		console.log(json);
+// 		req.set("userId", json.uuid);
+// 		console.log(req.get("userId"));
+// 		next();
+// 	})
+// 	.catch((err)=>{
+// 		console.log("aaaarrrsse");
+// 		console.log(err);
+// 		next(err);
+// 	});
+// };
 
 nunjucks.configure('views', {
   autoescape: true,
