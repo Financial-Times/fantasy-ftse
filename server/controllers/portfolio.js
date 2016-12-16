@@ -9,6 +9,8 @@ export {
 	sell
 };
 
+const source=process.env.SOURCE;
+
 const newPortfolio = {
 	id: "",
 	value: 0.00,
@@ -78,16 +80,33 @@ function read(req, res) {
 	});
 }
 
+function getStockInfo(symbols) {
+	const url=`http://markets.ft.com/research/webservices/securities/v1/quotes?symbols=${symbols}&source=${source}`;
+	return fetch(url).then(res=>{
+		if (res.status == 200) {
+			return res.json();
+		} else {
+			res.text()
+			.then (msg =>{
+				console.log(`Lookup of ${symbols} returned ${res.stats} ${msg}`);
+				return Promise.reject("msg");
+			});
+		}
+	})
+	.then(data=>{
+		var item = $data.items[0];
+		console.log(`${item.basic.name} (${item.basic.symbol}) ${item.quote.lastPrice}`);
+		return item;
+	});
+}
+
 function update(portfolio) {
 	var holdings = (portfolio.holdings);
 	var totalValue = 0;
 	var updates = Object.keys(holdings).map((key) => {
-		return fetch(`http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=${key}`)
-		.then ((apiRes) => {
-			return apiRes.json();
-		})
-		.then((quote)=>{
-			var value = quote.LastPrice * holdings[key].quantity;
+		return getStockInfo(key)
+		.then((info)=>{
+			var value = info.quote.lastPrice * holdings[key].quantity;
 			totalValue = totalValue + value;
 		});
 	});
@@ -99,7 +118,6 @@ function update(portfolio) {
 			portfolio.value = totalValue;
 			return db.collection('portfolios').updateOne({id:portfolio.id}, {$set:{value:portfolio.value, lastUpdated:portfolio.lastUpdated}})
 			.then((result)=>{
-				// console.log(result);
 				return portfolio;
 			});
 		});
@@ -110,22 +128,12 @@ function addStockInfo(req, res) {
 	var stock=req.body.tickerId;
 	console.log(req.body);
 	console.log(`stock ${stock}`);
-	return fetch(`http://dev.markitondemand.com/MODApis/Api/v2/Quote/json?symbol=${stock}`)
-	.then ((apiRes) => {
-		console.log(apiRes.status);
-		return apiRes.json();
-	})
-	.then((mdResp) => {
-		console.log(mdResp);
-		if (mdResp.Status === "SUCCESS") {
-			console.log(req.body);
-			req.body.price = mdResp.LastPrice;
-			req.body.stockName = mdResp.Name;
-			console.log(req.body);
-			return Promise.resolve(mdResp.Status);
-		} else {
-			return Promise.reject(mdResp.Message);
-		}
+	return getStockInfo(stock)
+	.then((info) => {
+		req.body.price = info.quote.lastPrice;
+		req.body.stockName = info.basic.name;
+		console.log(`Added ${req.body.lastPrice} for ${req.body.stockName}`);
+		return Promise.resolve(info);
 	}).catch((err) => {
 		console.log(err);
 		throw err;
