@@ -94,7 +94,7 @@ function getStockInfo(symbols) {
 		}
 	})
 	.then(data=>{
-		console.log(data);
+		console.log(data.items);
 		var item = data.items[0];
 		console.log(`${item.basic.name} (${item.basic.symbol}) ${item.quote.lastPrice}`);
 		return item;
