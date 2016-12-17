@@ -60,7 +60,7 @@ function create(req, res) {
 
 function read(req, res) {
 	var id = req.get('userId');
-	getConnection().then((db)=>{
+	return getConnection().then((db)=>{
 		db.collection('portfolios').findOne({id})
 		.then((r)=>{
 			console.log(r);
@@ -94,6 +94,7 @@ function getStockInfo(symbols) {
 		}
 	})
 	.then(data=>{
+		console.log(data);
 		var item = data.items[0];
 		console.log(`${item.basic.name} (${item.basic.symbol}) ${item.quote.lastPrice}`);
 		return item;
