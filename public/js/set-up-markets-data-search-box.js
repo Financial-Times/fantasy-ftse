@@ -46,7 +46,7 @@ function buyThing(e, symbol) {
 				refreshValues();
 				console.log('winnnar', woop);
 			}
-		})
+		});
 }
 
 function setUpSearchBox () {
@@ -82,9 +82,8 @@ function setUpSearchBox () {
 						'<div class="message"></div>' +
 						'</div>' +
 						'</li>';
-				})
-
-			})
+				});
+			});
 	}, 150);
 
 	searchBox.addEventListener('keyup', ev => {
