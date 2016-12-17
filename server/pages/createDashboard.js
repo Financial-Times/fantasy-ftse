@@ -74,7 +74,7 @@ function getRealHoldings () {
 		}
 	})
 		.then(res => {
-			console.log('get ${res.status} from portfolio');
+			console.log(`get ${res.status} from portfolio`);
 			return res.json();
 		})
 		.then(responseText => {
