@@ -96,8 +96,9 @@ function getRealHoldings () {
 							//console.log('got svg', svg);
 							return {
 								id: holding.id + " - " + holding.name,
-								tickerId: holding.name,
-								actualTickerId: holding.id,
+								// tickerId: holding.name,
+								// actualTickerId: holding.id,
+								tickerId: holding.id,
 								name: holding.name,
 								svgChart: svg,
 								amount: holding.quantity
