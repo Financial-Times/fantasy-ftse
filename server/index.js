@@ -55,7 +55,7 @@ app.get('/__gtg', (req, res) => {
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
-// app.use(addUserId());
+app.use(addUserId());
 
 app.get('/', dashboardController);
 app.get('/funds/:tickerId', tickersController);
