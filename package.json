@@ -10,7 +10,7 @@
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "is-finite": "^1.0.2",
-    "moment": "^2.16.0",
+    "moment": "^2.29.2",
     "mongodb": "^2.2.11",
     "node-fetch": "^1.6.3",
     "nunjucks": "^3.0.0"
